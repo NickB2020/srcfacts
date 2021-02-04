@@ -1,12 +1,9 @@
 /*
     srcFacts.cpp
-
-    Produces a report with various counts of the number of 
+    Produces a report with various counts of the number of
     statements, declarations, etc. of a source code project
     in C++, C, Java, and C#.
-
     Input is an XML file in the srcML format.
-
     Code includes an almost-complete XML parser. Limitations:
     * DTD declarations are not handled
     * Well-formedness is not checked
@@ -48,6 +45,8 @@ int main() {
     int file_count = 0;
     int decl_count = 0;
     int comment_count = 0;
+    int return_count = 0;
+    int literal_string_count = 0;
     int depth = 0;
     long total = 0;
     bool intag = false;
@@ -234,6 +233,10 @@ int main() {
                 ++file_count;
             else if (local_name == "comment")
                 ++comment_count;
+            else if (local_name == "return")
+                ++return_count;
+            else if (local_name == "literal")
+                ++literal_string_count;
             pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
             ++depth;
             intag = true;
@@ -431,5 +434,7 @@ int main() {
     std::cout << "| declarations | " << decl_count << " |\n";
     std::cout << "| expressions | " << expr_count << " |\n";
     std::cout << "| comments | " << comment_count << " |\n";
+    std::cout << "| returns | " << return_count << " |\n";
+    std::cout << "| literal strings | " << literal_string_count << " |\n";
     return 0;
 }
