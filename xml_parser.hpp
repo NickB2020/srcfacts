@@ -18,6 +18,7 @@ std::string::const_iterator isXMLDeclaration(std::string::const_iterator pc, std
 std::string::const_iterator isRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 // XML parsing is at encoding
 std::string::const_iterator isEncoding(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pvalueend, std::string::const_iterator pnameend);
-
+// XML parsing is at a standalone
+std::string::const_iterator isStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pvalueend, std::string::const_iterator pnameend);
 #endif
 
