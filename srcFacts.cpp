@@ -47,6 +47,7 @@ int main() {
     int comment_count = 0;
     int return_count = 0;
     int literal_string_count = 0;
+    int line_comment_count = 0;
     int depth = 0;
     long total = 0;
     bool intag = false;
@@ -237,6 +238,8 @@ int main() {
                 ++return_count;
             else if (local_name == "literal")
                 ++literal_string_count;
+            else if (local_name == "line comment")
+                ++line_comment_count;
             pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
             ++depth;
             intag = true;
@@ -436,5 +439,7 @@ int main() {
     std::cout << "| comments | " << comment_count << " |\n";
     std::cout << "| returns | " << return_count << " |\n";
     std::cout << "| literal strings | " << literal_string_count << " |\n";
+    std::cout << "| line comments | " << line_comment_count << " |\n";
+
     return 0;
 }
