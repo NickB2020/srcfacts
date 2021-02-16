@@ -56,3 +56,39 @@ pc = std::next(pvalueend);
 pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
 return pc;
 }
+// XML parsing is at a encoding
+std::string::const_iterator isEncoding(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pvalueend, std::string::const_iterator pnameend){
+    
+    std::string::const_iterator isRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+if (pc == endpc) {
+    std::cerr << "parser error: Missing required encoding in XML declaration\n";
+    exit(1);
+}
+pnameend = std::find(pc, endpc, '=');
+if (pnameend == endpc) {
+    std::cerr << "parser error: Incomple encoding in XML declaration\n";
+    exit(1);
+}
+const std::string attr2(pc, pnameend);
+pc = pnameend;
+std::advance(pc, 1);
+char delim2 = *pc;
+if (delim2 != '"' && delim2 != '\'') {
+    std::cerr << "parser error: Invalid end delimiter for encoding in XML declaration\n";
+    exit(1);
+}
+std::advance(pc, 1);
+pvalueend = std::find(pc, endpc, delim2);
+if (pvalueend == endpc) {
+    std::cerr << "parser error: Incomple encoding in XML declaration\n";
+    exit(1);
+}
+if (attr2 != "encoding") {
+     std::cerr << "parser error: Missing required encoding in XML declaration\n";
+    exit(1);
+}
+const std::string encoding(pc, pvalueend);
+pc = std::next(pvalueend);
+pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+    return pc;
+}
