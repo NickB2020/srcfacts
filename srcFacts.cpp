@@ -184,7 +184,7 @@ int main() {
             const std::string local_name = std::move(local_namebase);
             pc = std::next(endpc);
 
-        } else if (*pc == '<' && *std::next(pc) != '/' && *std::next(pc) != '?') {
+        } else if (isXMLStartTag(pc)) {
             // parse start tag
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             if (endpc == buffer.cend()) {
