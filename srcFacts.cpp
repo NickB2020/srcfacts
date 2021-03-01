@@ -334,6 +334,8 @@ int main() {
             pc = endpc;
         }
     }
+    
+    // srcFacts compose report
     std::cout << "# srcFacts: " << url << '\n';
     std::cout << "| Item | Count |\n";
     std::cout << "|:-----|-----:|\n";
