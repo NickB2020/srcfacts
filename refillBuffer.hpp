@@ -7,8 +7,6 @@
 #ifndef INCLUDE_REFILLBUFFER_HPP
 #define INCLUDE_REFILLBUFFER_HPP
 
-#include <iostream>
-#include <iterator>
 #include <string>
 
 // refill buffer
