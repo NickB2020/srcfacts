@@ -32,3 +32,9 @@ bool isXMLAttribute(bool intag, std::string::const_iterator pc){
     
     return intag && *pc != '>' && *pc != '/';
 }
+
+// XML parsing is at a XML CDATA
+bool isXMLCDATA(std::string::const_iterator pc){
+    
+    return *pc == '<' && *std::next(pc) == '!' && *std::next(pc, 2) == '[';
+}

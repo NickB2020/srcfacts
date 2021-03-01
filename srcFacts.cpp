@@ -334,7 +334,7 @@ int main() {
                 std::advance(pc, 2);
                 intag = false;
             }
-        } else if (*pc == '<' && *std::next(pc) == '!' && *std::next(pc, 2) == '[') {
+        } else if (isXMLCDATA(pc)) {
             // parse CDATA
             const std::string endcdata = "]]>";
             std::advance(pc, strlen("<![CDATA["));
