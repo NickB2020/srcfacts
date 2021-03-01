@@ -10,7 +10,6 @@
 */
 
 #include "xml_parser.hpp"
-
 #include <iostream>
 #include <iterator>
 #include <string>
