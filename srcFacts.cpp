@@ -9,6 +9,8 @@
     * Well-formedness is not checked
 */
 
+#include "xml_parser.hpp"
+
 #include <iostream>
 #include <iterator>
 #include <string>
@@ -58,19 +60,106 @@ int main() {
             pc = refillBuffer(pc, buffer, total);
             if (pc == buffer.cend())
                 break;
-        } else if (*pc == '<' && *std::next(pc) == '?') {
+        } else if (isXMLDeclaration(pc)) {
             // parse XML declaration
-            std::string::const_iterator isXMLDeclaration(std::string::const_iterator pc, std::string::const_iterator endpc, std::string buffer, long total, std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string& buffer, long& totalBytes));
-            
+            auto endpc = std::find(pc, buffer.cend(), '>');
+            if (endpc == buffer.cend()) {
+                pc = refillBuffer(pc, buffer, total);
+                endpc = std::find(pc, buffer.cend(), '>');
+                if (endpc == buffer.cend()) {
+                    std::cerr << "parser error: Incomplete XML declaration\n";
+                    exit(1);
+                }
+            }
+                std::advance(pc, strlen("<?xml"));
+                pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
             // parse required version
-            std::string::const_iterator isRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
-
-            // parse encoding
-            std::string::const_iterator isEncoding(std::string::const_iterator pc, std::string::const_iterator endpc);
-            
-            // parse standalone
-            std::string::const_iterator isStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pvalueend, std::string::const_iterator pnameend);
-            
+            if (pc == endpc) {
+                             std::cerr << "parser error: Missing space after before version in XML declaration\n";
+                             return 1;
+                         }
+                         std::string::const_iterator pnameend = std::find(pc, endpc, '=');
+                         const std::string attr(pc, pnameend);
+                         pc = pnameend;
+                         std::advance(pc, 1);
+                         char delim = *pc;
+                         if (delim != '"' && delim != '\'') {
+                             std::cerr << "parser error: Invalid start delimiter for version in XML declaration\n";
+                             return 1;
+                         }
+                         std::advance(pc, 1);
+                         std::string::const_iterator pvalueend = std::find(pc, endpc, delim);
+                         if (pvalueend == endpc) {
+                             std::cerr << "parser error: Invalid end delimiter for version in XML declaration\n";
+                             return 1;
+                         }
+                         if (attr != "version") {
+                             std::cerr << "parser error: Missing required first attribute version in XML declaration\n";
+                             return 1;
+                         }
+                         const std::string version(pc, pvalueend);
+                         pc = std::next(pvalueend);
+                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+                         // parse encoding
+                         if (pc == endpc) {
+                             std::cerr << "parser error: Missing required encoding in XML declaration\n";
+                             return 1;
+                         }
+                         pnameend = std::find(pc, endpc, '=');
+                         if (pnameend == endpc) {
+                             std::cerr << "parser error: Incomple encoding in XML declaration\n";
+                             return 1;
+                         }
+                         const std::string attr2(pc, pnameend);
+                         pc = pnameend;
+                         std::advance(pc, 1);
+                         char delim2 = *pc;
+                         if (delim2 != '"' && delim2 != '\'') {
+                             std::cerr << "parser error: Invalid end delimiter for encoding in XML declaration\n";
+                             return 1;
+                         }
+                         std::advance(pc, 1);
+                         pvalueend = std::find(pc, endpc, delim2);
+                         if (pvalueend == endpc) {
+                             std::cerr << "parser error: Incomple encoding in XML declaration\n";
+                             return 1;
+                         }
+                         if (attr2 != "encoding") {
+                              std::cerr << "parser error: Missing required encoding in XML declaration\n";
+                              return 1;
+                         }
+                         const std::string encoding(pc, pvalueend);
+                         pc = std::next(pvalueend);
+                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+                         // parse standalone
+                         if (pc == endpc) {
+                             std::cerr << "parser error: Missing required third attribute standalone in XML declaration\n";
+                             return 1;
+                         }
+                         pnameend = std::find(pc, endpc, '=');
+                         const std::string attr3(pc, pnameend);
+                         pc = pnameend;
+                         std::advance(pc, 1);
+                         char delim3 = *pc;
+                         if (delim3 != '"' && delim3 != '\'') {
+                             std::cerr << "parser error : Missing attribute standalone delimiter in XML declaration\n";
+                             return 1;
+                         }
+                         std::advance(pc, 1);
+                         pvalueend = std::find(pc, endpc, delim3);
+                         if (pvalueend == endpc) {
+                             std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
+                             return 1;
+                         }
+                         if (attr3 != "standalone") {
+                             std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
+                             return 1;
+                         }
+                         const std::string standalone(pc, pvalueend);
+                         pc = std::next(pvalueend);
+                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+                         std::advance(pc, strlen("?>"));
+                         pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
         } else if (*pc == '<' && *std::next(pc) == '/') {
             // parse end tag
             --depth;
