@@ -152,7 +152,7 @@ int main() {
                          pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
                          std::advance(pc, strlen("?>"));
                          pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
-        } else if (*pc == '<' && *std::next(pc) == '/') {
+        } else if (isXMLEndTag(pc)) {
             // parse end tag
             --depth;
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');

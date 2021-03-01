@@ -14,3 +14,9 @@ bool isXMLDeclaration(std::string::const_iterator pc){
     
     return *pc == '<' && *std::next(pc) == '?';
 }
+
+// XML parsing is at a XML end tag
+bool isXMLEndTag(std::string::const_iterator pc){
+    
+    return *pc == '<' && *std::next(pc) == '/';
+}
