@@ -13,11 +13,6 @@
 #include <iostream>
 #include <iterator>
 #include <string>
-#include <algorithm>
-#include <cstring>
-#include <sys/types.h>
-#include <errno.h>
-#include <ctype.h>
 
 #if !defined(_MSC_VER)
 #include <sys/uio.h>
