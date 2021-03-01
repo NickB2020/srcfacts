@@ -9,6 +9,10 @@
 #include <iterator>
 #include <string>
 
+const int XMLNS_SIZE = strlen("xmlns");
+const int BUFFER_SIZE = 16 * 16 * 4096;
+std::string buffer(BUFFER_SIZE, ' ');
+
 // XML parsing is at a XML declaration
 bool isXMLDeclaration(std::string::const_iterator pc){
     
@@ -61,4 +65,13 @@ bool isXMLEntityCharacters(std::string::const_iterator pc){
 bool isXMLCharacters(std::string::const_iterator pc){
     
     return *pc != '<';
+}
+
+// XML parsing is at namespaces
+bool isXMLNamespace(bool intag, std::string::const_iterator pc){
+    
+    std::advance(pc, XMLNS_SIZE);
+    
+    return intag && *pc != '>' && *pc != '/' && std::distance(pc, buffer.cend()) > (int) XMLNS_SIZE && std::string(pc, std::next(pc, XMLNS_SIZE)) == "xmlns"
+    && (*std::next(pc, XMLNS_SIZE) == ':' || *std::next(pc, XMLNS_SIZE) == '=');
 }
