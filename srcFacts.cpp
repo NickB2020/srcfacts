@@ -213,6 +213,19 @@ int main() {
                 local_namebase = qname;
             const std::string local_name = std::move(local_namebase);
             pc = pnameend;
+            pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
+            ++depth;
+            intag = true;
+            if (intag && *pc == '>') {
+                std::advance(pc, 1);
+                intag = false;
+            }
+            if (intag && *pc == '/' && *std::next(pc) == '>') {
+                std::advance(pc, 2);
+                intag = false;
+                --depth;
+            }
+            // update counters and expr
             if (local_name == "expr")
                 ++expr_count;
             else if (local_name == "function")
@@ -229,18 +242,6 @@ int main() {
                 ++return_count;
             else if (local_name == "literal")
                 ++literal_string_count;
-            pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
-            ++depth;
-            intag = true;
-            if (intag && *pc == '>') {
-                std::advance(pc, 1);
-                intag = false;
-            }
-            if (intag && *pc == '/' && *std::next(pc) == '>') {
-                std::advance(pc, 2);
-                intag = false;
-                --depth;
-            }
         } else if (isXMLNamespace(intag, pc)) {
             // parse namespace
             const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
