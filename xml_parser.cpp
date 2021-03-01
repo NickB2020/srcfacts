@@ -50,3 +50,10 @@ bool isCharactersBeforeOrAfter(int depth, std::string::const_iterator pc){
     
     return *pc != '<' && depth == 0;
 }
+
+// XML parsing is at entity characters
+bool isXMLEntityCharacters(std::string::const_iterator pc){
+    
+    return *pc == '&';
+}
+

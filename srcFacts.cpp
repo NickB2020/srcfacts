@@ -370,7 +370,7 @@ int main() {
                 std::cerr << "parser error : Start tag expected, '<' not found\n";
                 return 1;
             }
-        } else if (*pc == '&') {
+        } else if (isXMLEntityCharacters(pc)) {
             // parse entity references
             std::string characters;
             if (std::distance(pc, buffer.cend()) < 3) {

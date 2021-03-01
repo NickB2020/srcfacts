@@ -30,4 +30,7 @@ bool isXMLComment(std::string::const_iterator pc);
 // is parsing at characters before or after XML
 bool isCharactersBeforeOrAfter(int depth, std::string::const_iterator pc);
 
+// is parsing at a XML entity characters
+bool isXMLEntityCharacters(std::string::const_iterator pc);
+
 #endif
