@@ -44,3 +44,9 @@ bool isXMLComment(std::string::const_iterator pc){
     
     return *pc == '<' && *std::next(pc) == '!' && *std::next(pc, 2) == '-' && *std::next(pc, 3) == '-';
 }
+
+// XML parsing is at characters before or after XML
+bool isCharactersBeforeOrAfter(int depth, std::string::const_iterator pc){
+    
+    return *pc != '<' && depth == 0;
+}

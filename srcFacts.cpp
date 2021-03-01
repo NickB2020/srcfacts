@@ -363,7 +363,7 @@ int main() {
             }
             pc = std::next(endpc, strlen("-->"));
             pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
-        } else if (*pc != '<' && depth == 0) {
+        } else if (isCharactersBeforeOrAfter(depth, pc)) {
             // parse characters before or after XML
             pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
             if (pc == buffer.cend() || !isspace(*pc)) {
