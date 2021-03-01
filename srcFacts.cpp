@@ -406,7 +406,7 @@ int main() {
                 std::advance(pc, 1);
             }
             textsize += (int) characters.size();
-        } else if (*pc != '<') {
+        } else if (isXMLCharacters(pc)) {
             // parse characters
             const std::string::const_iterator endpc = std::find_if(pc, buffer.cend(), [] (char c) { return c == '<' || c == '&'; });
             const std::string characters(pc, endpc);

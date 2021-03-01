@@ -57,3 +57,8 @@ bool isXMLEntityCharacters(std::string::const_iterator pc){
     return *pc == '&';
 }
 
+// XML parsing is at characters
+bool isXMLCharacters(std::string::const_iterator pc){
+    
+    return *pc != '<';
+}
