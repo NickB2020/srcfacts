@@ -286,7 +286,7 @@ int main() {
                 std::advance(pc, 2);
                 intag = false;
             }
-        } else if (intag && *pc != '>' && *pc != '/') {
+        } else if (isXMLAttribute(intag, pc)) {
             // parse attribute
             const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             std::string::const_iterator pnameend = std::find(pc, std::next(endpc), '=');

@@ -18,4 +18,7 @@ bool isXMLEndTag(std::string::const_iterator pc);
 // is parsing at a XML start tag
 bool isXMLStartTag(std::string::const_iterator pc);
 
+// is parsing at a XML attribute
+bool isXMLAttribute(bool intag, std::string::const_iterator pc);
+
 #endif

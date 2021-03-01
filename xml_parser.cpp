@@ -20,8 +20,15 @@ bool isXMLEndTag(std::string::const_iterator pc){
     
     return *pc == '<' && *std::next(pc) == '/';
 }
+
 // XML parsing is at a XML start tag
 bool isXMLStartTag(std::string::const_iterator pc){
     
     return *pc == '<' && *std::next(pc) != '/' && *std::next(pc) != '?';
+}
+
+// XML parsing is at a XML attribute
+bool isXMLAttribute(bool intag, std::string::const_iterator pc){
+    
+    return intag && *pc != '>' && *pc != '/';
 }
