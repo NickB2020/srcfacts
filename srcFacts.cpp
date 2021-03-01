@@ -349,7 +349,7 @@ int main() {
             textsize += (int) characters.size();
             loc += (int) std::count(characters.begin(), characters.end(), '\n');
             pc = std::next(endpc, strlen("]]>"));
-        } else if (*pc == '<' && *std::next(pc) == '!' && *std::next(pc, 2) == '-' && *std::next(pc, 3) == '-') {
+        } else if (isXMLComment(pc)) {
             // parse XML comment
             const std::string endcomment = "-->";
             std::string::const_iterator endpc = std::search(pc, buffer.cend(), endcomment.begin(), endcomment.end());

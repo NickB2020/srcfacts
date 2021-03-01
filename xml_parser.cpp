@@ -38,3 +38,9 @@ bool isXMLCDATA(std::string::const_iterator pc){
     
     return *pc == '<' && *std::next(pc) == '!' && *std::next(pc, 2) == '[';
 }
+
+// XML parsing is at a XML comment
+bool isXMLComment(std::string::const_iterator pc){
+    
+    return *pc == '<' && *std::next(pc) == '!' && *std::next(pc, 2) == '-' && *std::next(pc, 3) == '-';
+}
