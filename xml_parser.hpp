@@ -42,4 +42,7 @@ bool isXMLNamespace(bool intag, std::string::const_iterator pc);
 // parse a XML declaration
 std::string::const_iterator parseDeclaration(std::string::const_iterator pc, std::string::const_iterator end, long total, std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string::const_iterator buffer.cend, long total));
 
+// parse required version
+std::string::const_iterator parseRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+
 #endif
