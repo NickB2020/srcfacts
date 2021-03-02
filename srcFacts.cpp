@@ -53,19 +53,22 @@ int main() {
                 break;
         } else if (isXMLDeclaration(pc)) {
             // parse XML declaration
-            auto endpc = std::find(pc, buffer.cend(), '>');
-            if (endpc == buffer.cend()) {
-                pc = refillBuffer(pc, buffer, total);
-                endpc = std::find(pc, buffer.cend(), '>');
-                if (endpc == buffer.cend()) {
-                    std::cerr << "parser error: Incomplete XML declaration\n";
-                    exit(1);
-                }
-            }
+            pc = parseDeclaration(pc, endpc, total, refillBuffer(pc, buffer, total));
+//            auto endpc = std::find(pc, buffer.cend(), '>');
+//            if (endpc == buffer.cend()) {
+//                pc = refillBuffer(pc, buffer, total);
+//                endpc = std::find(pc, buffer.cend(), '>');
+//                if (endpc == buffer.cend()) {
+//                    std::cerr << "parser error: Incomplete XML declaration\n";
+//                    return(1);
+//                }
+//            }
                 std::advance(pc, strlen("<?xml"));
                 pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
             // parse required version
             if (pc == endpc) {
+
+                               pc = parseRequiredVersion(pc, endpc, pnameend, pvalueend);
                              std::cerr << "parser error: Missing space after before version in XML declaration\n";
                              return 1;
                          }
@@ -153,7 +156,7 @@ int main() {
                          pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
         } else if (isXMLEndTag(pc)) {
             // parse end tag
-            --depth;
+                --depth;
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             if (endpc == buffer.cend()) {
                 pc = refillBuffer(pc, buffer, total);

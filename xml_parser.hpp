@@ -39,4 +39,7 @@ bool isXMLCharacters(std::string::const_iterator pc);
 // is parsing at a XML namespaces
 bool isXMLNamespace(bool intag, std::string::const_iterator pc);
 
+// parse a XML declaration
+std::string::const_iterator parseDeclaration(std::string::const_iterator pc, std::string::const_iterator end, long total, std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string::const_iterator buffer.cend, long total));
+
 #endif

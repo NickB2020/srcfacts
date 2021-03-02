@@ -75,3 +75,18 @@ bool isXMLNamespace(bool intag, std::string::const_iterator pc){
     return intag && *pc != '>' && *pc != '/' && std::distance(pc, buffer.cend()) > (int) XMLNS_SIZE && std::string(pc, std::next(pc, XMLNS_SIZE)) == "xmlns"
     && (*std::next(pc, XMLNS_SIZE) == ':' || *std::next(pc, XMLNS_SIZE) == '=');
 }
+
+// Parse a XML declaration
+std::string::const_iterator parseDeclaration(std::string::const_iterator pc, std::string::const_iterator endpc, long total,  std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string::const_iterator buffer.cend, long total)){
+
+    endpc = std::find(pc, buffer.cend(), '>');
+    if (endpc == buffer.cend()) {
+        pc = refillBuffer(pc, buffer, total);
+        endpc = std::find(pc, buffer.cend(), '>');
+        if (endpc == buffer.cend()) {
+            std::cerr << "parser error: Incomplete XML declaration\n";
+            exit(1);
+        }
+
+        return pc;
+}
