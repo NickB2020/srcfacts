@@ -39,22 +39,22 @@ bool isXMLCharacters(std::string::const_iterator pc);
 // is parsing at a XML namespaces
 bool isXMLNamespace(bool intag, std::string::const_iterator pc);
 
-// parse a XML declaration
-std::string::const_iterator parseDeclaration(std::string::const_iterator pc, std::string::const_iterator end, long total, std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string::const_iterator buffer.cend, long total));
-
-// parse required version
-std::string::const_iterator parseRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
-
-// parse a XML encoding
-std::string::const_iterator parseEncoding(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
-
-// parse a XML standalone
-std::string::const_iterator parseStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
-
-// parse a XML end tag
-std::string::const_iterator parseEndTag(int depth, long total, std::string::const_iterator pc, std::string buffer,std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string& buffer, long& total));
-
-// parse a XML start tag
-std::string::const_iterator parseEndTag(int depth, long total, std::string::const_iterator pc, std::string buffer,std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string& buffer, long& total));
+//// parse a XML declaration
+//std::string::const_iterator parseDeclaration(std::string::const_iterator pc, std::string::const_iterator end, long total, std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string::const_iterator buffer.cend, long total));
+//
+//// parse required version
+//std::string::const_iterator parseRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+//
+//// parse a XML encoding
+//std::string::const_iterator parseEncoding(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+//
+//// parse a XML standalone
+//std::string::const_iterator parseStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+//
+//// parse a XML end tag
+//std::string::const_iterator parseEndTag(int depth, long total, std::string::const_iterator pc, std::string buffer,std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string& buffer, long& total));
+//
+//// parse a XML start tag
+//std::string::const_iterator parseEndTag(int depth, long total, std::string::const_iterator pc, std::string buffer,std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string& buffer, long& total));
 
 #endif

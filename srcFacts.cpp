@@ -53,185 +53,184 @@ int main() {
                 break;
         } else if (isXMLDeclaration(pc)) {
             // parse XML declaration
-            pc = parseDeclaration(pc, endpc, total, refillBuffer(pc, buffer, total));
-//            auto endpc = std::find(pc, buffer.cend(), '>');
-//            if (endpc == buffer.cend()) {
-//                pc = refillBuffer(pc, buffer, total);
-//                endpc = std::find(pc, buffer.cend(), '>');
-//                if (endpc == buffer.cend()) {
-//                    std::cerr << "parser error: Incomplete XML declaration\n";
-//                    return(1);
-//                }
-//            }
+           //  pc = parseDeclaration(pc, endpc, total, refillBuffer(pc, buffer, total));
+            auto endpc = std::find(pc, buffer.cend(), '>');
+            if (endpc == buffer.cend()) {
+                pc = refillBuffer(pc, buffer, total);
+                endpc = std::find(pc, buffer.cend(), '>');
+                if (endpc == buffer.cend()) {
+                    std::cerr << "parser error: Incomplete XML declaration\n";
+                    return(1);
+                }
+            }
                 std::advance(pc, strlen("<?xml"));
                 pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
             // parse required version
-//            if (pc == endpc) {
-//
-                               pc = parseRequiredVersion(pc, endpc, pnameend, pvalueend);
-//                             std::cerr << "parser error: Missing space after before version in XML declaration\n";
-//                             return 1;
-//                         }
-//                         std::string::const_iterator pnameend = std::find(pc, endpc, '=');
-//                         const std::string attr(pc, pnameend);
-//                         pc = pnameend;
-//                         std::advance(pc, 1);
-//                         char delim = *pc;
-//                         if (delim != '"' && delim != '\'') {
-//                             std::cerr << "parser error: Invalid start delimiter for version in XML declaration\n";
-//                             return 1;
-//                         }
-//                         std::advance(pc, 1);
-//                         std::string::const_iterator pvalueend = std::find(pc, endpc, delim);
-//                         if (pvalueend == endpc) {
-//                             std::cerr << "parser error: Invalid end delimiter for version in XML declaration\n";
-//                             return 1;
-//                         }
-//                         if (attr != "version") {
-//                             std::cerr << "parser error: Missing required first attribute version in XML declaration\n";
-//                             return 1;
-//                         }
-//                         const std::string version(pc, pvalueend);
-//                         pc = std::next(pvalueend);
-//                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
-                         // parse encoding
-            pc = parseEncoding(pc, endpc, pnameend, pvalueend);
-//                         if (pc == endpc) {
-//                             std::cerr << "parser error: Missing required encoding in XML declaration\n";
-//                             return 1;
-//                         }
-//                         pnameend = std::find(pc, endpc, '=');
-//                         if (pnameend == endpc) {
-//                             std::cerr << "parser error: Incomple encoding in XML declaration\n";
-//                             return 1;
-//                         }
-//                         const std::string attr2(pc, pnameend);
-//                         pc = pnameend;
-//                         std::advance(pc, 1);
-//                         char delim2 = *pc;
-//                         if (delim2 != '"' && delim2 != '\'') {
-//                             std::cerr << "parser error: Invalid end delimiter for encoding in XML declaration\n";
-//                             return 1;
-//                         }
-//                         std::advance(pc, 1);
-//                         pvalueend = std::find(pc, endpc, delim2);
-//                         if (pvalueend == endpc) {
-//                             std::cerr << "parser error: Incomple encoding in XML declaration\n";
-//                             return 1;
-//                         }
-//                         if (attr2 != "encoding") {
-//                              std::cerr << "parser error: Missing required encoding in XML declaration\n";
-//                              return 1;
-//                         }
-//                         const std::string encoding(pc, pvalueend);
-//                         pc = std::next(pvalueend);
-//                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
-                         // parse standalone
-                         pc =  parseStandalone(pc, endpc, pnameend, pvalueend);
-//                         if (pc == endpc) {
-//                             std::cerr << "parser error: Missing required third attribute standalone in XML declaration\n";
-//                             return 1;
-//                         }
-//                         pnameend = std::find(pc, endpc, '=');
-//                         const std::string attr3(pc, pnameend);
-//                         pc = pnameend;
-//                         std::advance(pc, 1);
-//                         char delim3 = *pc;
-//                         if (delim3 != '"' && delim3 != '\'') {
-//                             std::cerr << "parser error : Missing attribute standalone delimiter in XML declaration\n";
-//                             return 1;
-//                         }
-//                         std::advance(pc, 1);
-//                         pvalueend = std::find(pc, endpc, delim3);
-//                         if (pvalueend == endpc) {
-//                             std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
-//                             return 1;
-//                         }
-//                         if (attr3 != "standalone") {
-//                             std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
-//                             return 1;
-//                         }
-//                         const std::string standalone(pc, pvalueend);
-//                         pc = std::next(pvalueend);
-//                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
-//                         std::advance(pc, strlen("?>"));
-//                         pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
+            // pc = parseRequiredVersion(pc, endpc, pnameend, pvalueend);
+            if (pc == endpc) {
+                std::cerr << "parser error: Missing space after before version in XML declaration\n";
+                return 1;
+                }
+            std::string::const_iterator pnameend = std::find(pc, endpc, '=');
+            const std::string attr(pc, pnameend);
+            pc = pnameend;
+            std::advance(pc, 1);
+            char delim = *pc;
+            if (delim != '"' && delim != '\'') {
+                std::cerr << "parser error: Invalid start delimiter for version in XML declaration\n";
+                return 1;
+                }
+            std::advance(pc, 1);
+            std::string::const_iterator pvalueend = std::find(pc, endpc, delim);
+            if (pvalueend == endpc) {
+                std::cerr << "parser error: Invalid end delimiter for version in XML declaration\n";
+                return 1;
+                }
+            if (attr != "version") {
+                std::cerr << "parser error: Missing required first attribute version in XML declaration\n";
+                return 1;
+                }
+            const std::string version(pc, pvalueend);
+            pc = std::next(pvalueend);
+            pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+            // parse encoding
+            //pc = parseEncoding(pc, endpc, pnameend, pvalueend);
+            if (pc == endpc) {
+                std::cerr << "parser error: Missing required encoding in XML declaration\n";
+                return 1;
+                }
+            pnameend = std::find(pc, endpc, '=');
+            if (pnameend == endpc) {
+                std::cerr << "parser error: Incomple encoding in XML declaration\n";
+                return 1;
+                }
+            const std::string attr2(pc, pnameend);
+            pc = pnameend;
+            std::advance(pc, 1);
+            char delim2 = *pc;
+            if (delim2 != '"' && delim2 != '\'') {
+                std::cerr << "parser error: Invalid end delimiter for encoding in XML declaration\n";
+                return 1;
+                }
+                std::advance(pc, 1);
+                pvalueend = std::find(pc, endpc, delim2);
+                if (pvalueend == endpc) {
+                    std::cerr << "parser error: Incomple encoding in XML declaration\n";
+                    return 1;
+                    }
+                if (attr2 != "encoding") {
+                    std::cerr << "parser error: Missing required encoding in XML declaration\n";
+                    return 1;
+                    }
+                const std::string encoding(pc, pvalueend);
+                pc = std::next(pvalueend);
+                pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+                // parse standalone
+                //  pc =  parseStandalone(pc, endpc, pnameend, pvalueend);
+                if (pc == endpc) {
+                    std::cerr << "parser error: Missing required third attribute standalone in XML declaration\n";
+                    return 1;
+                    }
+                pnameend = std::find(pc, endpc, '=');
+                const std::string attr3(pc, pnameend);
+                pc = pnameend;
+                std::advance(pc, 1);
+                char delim3 = *pc;
+                if (delim3 != '"' && delim3 != '\'') {
+                    std::cerr << "parser error : Missing attribute standalone delimiter in XML declaration\n";
+                    return 1;
+                    }
+                std::advance(pc, 1);
+                pvalueend = std::find(pc, endpc, delim3);
+                if (pvalueend == endpc) {
+                    std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
+                    return 1;
+                    }
+                if (attr3 != "standalone") {
+                    std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
+                    return 1;
+                    }
+                const std::string standalone(pc, pvalueend);
+                pc = std::next(pvalueend);
+                pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+                std::advance(pc, strlen("?>"));
+        pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
         } else if (isXMLEndTag(pc)) {
             // parse end tag
-            pc =  parseEndTag(depth, total, pc, buffer.cend(), refillBuffer(pc, buffer, total));
-//                --depth;
-//            std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
-//            if (endpc == buffer.cend()) {
-//                pc = refillBuffer(pc, buffer, total);
-//                endpc = std::find(pc, buffer.cend(), '>');
-//                if (endpc == buffer.cend()) {
-//                    std::cerr << "parser error: Incomplete element end tag\n";
-//                    return 1;
-//                }
-//            }
-//            std::advance(pc, 2);
-//            std::string::const_iterator pnameend = std::find_if(pc, std::next(endpc), [] (char c) { return isspace(c) || c == '>' || c == '/'; });
-//            if (pnameend == std::next(endpc)) {
-//                  std::cerr << "parser error: Incomplete element end tag name\n";
-//                  return 1;
-//            }
-//            const std::string qname(pc, pnameend);
-//            const auto colonpos = qname.find(':');
-//            std::string prefixbase;
-//            if (colonpos != std::string::npos)
-//                prefixbase = qname.substr(0, colonpos);
-//            const std::string prefix = std::move(prefixbase);
-//            std::string local_namebase;
-//            if (colonpos != std::string::npos)
-//                local_namebase = qname.substr(colonpos + 1);
-//            else
-//                local_namebase = qname;
-//            const std::string local_name = std::move(local_namebase);
-//            pc = std::next(endpc);
+           //  pc =  parseEndTag(depth, total, pc, buffer.cend(), refillBuffer(pc, buffer, total));
+                --depth;
+            std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
+            if (endpc == buffer.cend()) {
+                pc = refillBuffer(pc, buffer, total);
+                endpc = std::find(pc, buffer.cend(), '>');
+                if (endpc == buffer.cend()) {
+                    std::cerr << "parser error: Incomplete element end tag\n";
+                    return 1;
+                }
+            }
+            std::advance(pc, 2);
+            std::string::const_iterator pnameend = std::find_if(pc, std::next(endpc), [] (char c) { return isspace(c) || c == '>' || c == '/'; });
+            if (pnameend == std::next(endpc)) {
+                  std::cerr << "parser error: Incomplete element end tag name\n";
+                  return 1;
+            }
+            const std::string qname(pc, pnameend);
+            const auto colonpos = qname.find(':');
+            std::string prefixbase;
+            if (colonpos != std::string::npos)
+                prefixbase = qname.substr(0, colonpos);
+            const std::string prefix = std::move(prefixbase);
+            std::string local_namebase;
+            if (colonpos != std::string::npos)
+                local_namebase = qname.substr(colonpos + 1);
+            else
+                local_namebase = qname;
+            const std::string local_name = std::move(local_namebase);
+            pc = std::next(endpc);
 
         } else if (isXMLStartTag(pc)) {
             // parse start tag
-            pc =  parseStartTag(depth, total, pc, buffer.cend(), refillBuffer(pc, buffer, total));
-//            std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
-//            if (endpc == buffer.cend()) {
-//                pc = refillBuffer(pc, buffer, total);
-//                endpc = std::find(pc, buffer.cend(), '>');
-//                if (endpc == buffer.cend()) {
-//                    std::cerr << "parser error: Incomplete element start tag\n";
-//                    return 1;
-//                }
-//            }
-//            std::advance(pc, 1);
-//            std::string::const_iterator pnameend = std::find_if(pc, std::next(endpc), [] (char c) { return isspace(c) || c == '>' || c == '/'; });
-//            if (pnameend == std::next(endpc)) {
-//                std::cerr << "parser error : Unterminated start tag '" << std::string(pc, pnameend) << "'\n";
-//                return 1;
-//            }
-//            const std::string qname(pc, pnameend);
-//            const auto colonpos = qname.find(':');
-//            std::string prefixbase;
-//            if (colonpos != std::string::npos)
-//                prefixbase = qname.substr(0, colonpos);
-//            const std::string prefix = std::move(prefixbase);
-//            std::string local_namebase;
-//            if (colonpos != std::string::npos)
-//                local_namebase = qname.substr(colonpos + 1);
-//            else
-//                local_namebase = qname;
-//            const std::string local_name = std::move(local_namebase);
-//            pc = pnameend;
-//            pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
-//            ++depth;
-//            intag = true;
-//            if (intag && *pc == '>') {
-//                std::advance(pc, 1);
-//                intag = false;
-//            }
-//            if (intag && *pc == '/' && *std::next(pc) == '>') {
-//                std::advance(pc, 2);
-//                intag = false;
-//                --depth;
-//            }
+           //  pc =  parseStartTag(depth, total, pc, buffer.cend(), refillBuffer(pc, buffer, total));
+            std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
+            if (endpc == buffer.cend()) {
+                pc = refillBuffer(pc, buffer, total);
+                endpc = std::find(pc, buffer.cend(), '>');
+                if (endpc == buffer.cend()) {
+                    std::cerr << "parser error: Incomplete element start tag\n";
+                    return 1;
+                }
+            }
+            std::advance(pc, 1);
+            std::string::const_iterator pnameend = std::find_if(pc, std::next(endpc), [] (char c) { return isspace(c) || c == '>' || c == '/'; });
+            if (pnameend == std::next(endpc)) {
+                std::cerr << "parser error : Unterminated start tag '" << std::string(pc, pnameend) << "'\n";
+                return 1;
+            }
+            const std::string qname(pc, pnameend);
+            const auto colonpos = qname.find(':');
+            std::string prefixbase;
+            if (colonpos != std::string::npos)
+                prefixbase = qname.substr(0, colonpos);
+            const std::string prefix = std::move(prefixbase);
+            std::string local_namebase;
+            if (colonpos != std::string::npos)
+                local_namebase = qname.substr(colonpos + 1);
+            else
+                local_namebase = qname;
+            const std::string local_name = std::move(local_namebase);
+            pc = pnameend;
+            pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
+            ++depth;
+            intag = true;
+            if (intag && *pc == '>') {
+                std::advance(pc, 1);
+                intag = false;
+            }
+            if (intag && *pc == '/' && *std::next(pc) == '>') {
+                std::advance(pc, 2);
+                intag = false;
+                --depth;
+            }
             // update counters and expr
             if (local_name == "expr")
                 ++expr_count;
@@ -251,6 +250,7 @@ int main() {
                 ++literal_string_count;
         } else if (isXMLNamespace(intag, pc)) {
             // parse namespace
+            // pc =  parseEndTag(intag, pc, buffer.cend());
             const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             std::string::const_iterator pnameend = std::find(pc, std::next(endpc), '=');
             if (pnameend == std::next(endpc)) {
@@ -293,6 +293,7 @@ int main() {
             }
         } else if (isXMLAttribute(intag, pc)) {
             // parse attribute
+            // pc = parseAttributes(intag, total, pc, buffer.cend());
             const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             std::string::const_iterator pnameend = std::find(pc, std::next(endpc), '=');
             if (pnameend == std::next(endpc))
@@ -341,6 +342,7 @@ int main() {
             }
         } else if (isXMLCDATA(pc)) {
             // parse CDATA
+           //  pc =  parseCDATA(total, loc, textsize, pc, buffer.cend(), refillBuffer(pc, buffer, total));
             const std::string endcdata = "]]>";
             std::advance(pc, strlen("<![CDATA["));
             std::string::const_iterator endpc = std::search(pc, buffer.cend(), endcdata.begin(), endcdata.end());
@@ -356,6 +358,7 @@ int main() {
             pc = std::next(endpc, strlen("]]>"));
         } else if (isXMLComment(pc)) {
             // parse XML comment
+           //  pc =  parseComment(pc, buffer.cend(), refillBuffer(pc, buffer, total));
             const std::string endcomment = "-->";
             std::string::const_iterator endpc = std::search(pc, buffer.cend(), endcomment.begin(), endcomment.end());
             if (endpc == buffer.cend()) {
@@ -370,6 +373,7 @@ int main() {
             pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
         } else if (isCharactersBeforeOrAfter(depth, pc)) {
             // parse characters before or after XML
+           //  pc = parseCharactersBeforeOrAfter(pc, buffer.cend());
             pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
             if (pc == buffer.cend() || !isspace(*pc)) {
                 std::cerr << "parser error : Start tag expected, '<' not found\n";
@@ -377,6 +381,7 @@ int main() {
             }
         } else if (isXMLEntityCharacters(pc)) {
             // parse entity references
+           //  pc = parseEntityReference(pc, buffer, refillBuffer(pc, buffer, total,textsize));
             std::string characters;
             if (std::distance(pc, buffer.cend()) < 3) {
                 pc = refillBuffer(pc, buffer, total);
@@ -413,6 +418,7 @@ int main() {
             textsize += (int) characters.size();
         } else if (isXMLCharacters(pc)) {
             // parse characters
+           // pc = parseCharacter(pc, loc, textsize);
             const std::string::const_iterator endpc = std::find_if(pc, buffer.cend(), [] (char c) { return c == '<' || c == '&'; });
             const std::string characters(pc, endpc);
             loc += (int) std::count(characters.cbegin(), characters.cend(), '\n');
