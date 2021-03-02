@@ -191,46 +191,47 @@ int main() {
 
         } else if (isXMLStartTag(pc)) {
             // parse start tag
-            std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
-            if (endpc == buffer.cend()) {
-                pc = refillBuffer(pc, buffer, total);
-                endpc = std::find(pc, buffer.cend(), '>');
-                if (endpc == buffer.cend()) {
-                    std::cerr << "parser error: Incomplete element start tag\n";
-                    return 1;
-                }
-            }
-            std::advance(pc, 1);
-            std::string::const_iterator pnameend = std::find_if(pc, std::next(endpc), [] (char c) { return isspace(c) || c == '>' || c == '/'; });
-            if (pnameend == std::next(endpc)) {
-                std::cerr << "parser error : Unterminated start tag '" << std::string(pc, pnameend) << "'\n";
-                return 1;
-            }
-            const std::string qname(pc, pnameend);
-            const auto colonpos = qname.find(':');
-            std::string prefixbase;
-            if (colonpos != std::string::npos)
-                prefixbase = qname.substr(0, colonpos);
-            const std::string prefix = std::move(prefixbase);
-            std::string local_namebase;
-            if (colonpos != std::string::npos)
-                local_namebase = qname.substr(colonpos + 1);
-            else
-                local_namebase = qname;
-            const std::string local_name = std::move(local_namebase);
-            pc = pnameend;
-            pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
-            ++depth;
-            intag = true;
-            if (intag && *pc == '>') {
-                std::advance(pc, 1);
-                intag = false;
-            }
-            if (intag && *pc == '/' && *std::next(pc) == '>') {
-                std::advance(pc, 2);
-                intag = false;
-                --depth;
-            }
+            pc =  parseStartTag(depth, total, pc, buffer.cend(), refillBuffer(pc, buffer, total));
+//            std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
+//            if (endpc == buffer.cend()) {
+//                pc = refillBuffer(pc, buffer, total);
+//                endpc = std::find(pc, buffer.cend(), '>');
+//                if (endpc == buffer.cend()) {
+//                    std::cerr << "parser error: Incomplete element start tag\n";
+//                    return 1;
+//                }
+//            }
+//            std::advance(pc, 1);
+//            std::string::const_iterator pnameend = std::find_if(pc, std::next(endpc), [] (char c) { return isspace(c) || c == '>' || c == '/'; });
+//            if (pnameend == std::next(endpc)) {
+//                std::cerr << "parser error : Unterminated start tag '" << std::string(pc, pnameend) << "'\n";
+//                return 1;
+//            }
+//            const std::string qname(pc, pnameend);
+//            const auto colonpos = qname.find(':');
+//            std::string prefixbase;
+//            if (colonpos != std::string::npos)
+//                prefixbase = qname.substr(0, colonpos);
+//            const std::string prefix = std::move(prefixbase);
+//            std::string local_namebase;
+//            if (colonpos != std::string::npos)
+//                local_namebase = qname.substr(colonpos + 1);
+//            else
+//                local_namebase = qname;
+//            const std::string local_name = std::move(local_namebase);
+//            pc = pnameend;
+//            pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
+//            ++depth;
+//            intag = true;
+//            if (intag && *pc == '>') {
+//                std::advance(pc, 1);
+//                intag = false;
+//            }
+//            if (intag && *pc == '/' && *std::next(pc) == '>') {
+//                std::advance(pc, 2);
+//                intag = false;
+//                --depth;
+//            }
             // update counters and expr
             if (local_name == "expr")
                 ++expr_count;

@@ -54,4 +54,7 @@ std::string::const_iterator parseStandalone(std::string::const_iterator pc, std:
 // parse a XML end tag
 std::string::const_iterator parseEndTag(int depth, long total, std::string::const_iterator pc, std::string buffer,std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string& buffer, long& total));
 
+// parse a XML start tag
+std::string::const_iterator parseEndTag(int depth, long total, std::string::const_iterator pc, std::string buffer,std::string::const_iterator refillBuffer(std::string::const_iterator pc, std::string& buffer, long& total));
+
 #endif
