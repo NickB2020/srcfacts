@@ -127,34 +127,35 @@ int main() {
 //                         pc = std::next(pvalueend);
 //                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
                          // parse standalone
-                         if (pc == endpc) {
-                             std::cerr << "parser error: Missing required third attribute standalone in XML declaration\n";
-                             return 1;
-                         }
-                         pnameend = std::find(pc, endpc, '=');
-                         const std::string attr3(pc, pnameend);
-                         pc = pnameend;
-                         std::advance(pc, 1);
-                         char delim3 = *pc;
-                         if (delim3 != '"' && delim3 != '\'') {
-                             std::cerr << "parser error : Missing attribute standalone delimiter in XML declaration\n";
-                             return 1;
-                         }
-                         std::advance(pc, 1);
-                         pvalueend = std::find(pc, endpc, delim3);
-                         if (pvalueend == endpc) {
-                             std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
-                             return 1;
-                         }
-                         if (attr3 != "standalone") {
-                             std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
-                             return 1;
-                         }
-                         const std::string standalone(pc, pvalueend);
-                         pc = std::next(pvalueend);
-                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
-                         std::advance(pc, strlen("?>"));
-                         pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
+                         pc =  parseStandalone(pc, endpc, pnameend, pvalueend);
+//                         if (pc == endpc) {
+//                             std::cerr << "parser error: Missing required third attribute standalone in XML declaration\n";
+//                             return 1;
+//                         }
+//                         pnameend = std::find(pc, endpc, '=');
+//                         const std::string attr3(pc, pnameend);
+//                         pc = pnameend;
+//                         std::advance(pc, 1);
+//                         char delim3 = *pc;
+//                         if (delim3 != '"' && delim3 != '\'') {
+//                             std::cerr << "parser error : Missing attribute standalone delimiter in XML declaration\n";
+//                             return 1;
+//                         }
+//                         std::advance(pc, 1);
+//                         pvalueend = std::find(pc, endpc, delim3);
+//                         if (pvalueend == endpc) {
+//                             std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
+//                             return 1;
+//                         }
+//                         if (attr3 != "standalone") {
+//                             std::cerr << "parser error : Missing attribute standalone in XML declaration\n";
+//                             return 1;
+//                         }
+//                         const std::string standalone(pc, pvalueend);
+//                         pc = std::next(pvalueend);
+//                         pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+//                         std::advance(pc, strlen("?>"));
+//                         pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
         } else if (isXMLEndTag(pc)) {
             // parse end tag
                 --depth;
