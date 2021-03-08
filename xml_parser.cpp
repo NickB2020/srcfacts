@@ -288,3 +288,14 @@ std::string::const_iterator parseComment(std::string::const_iterator pc,  std::s
     
     return pc;
 }
+
+// Parse a XML character before or after XML
+std::string::const_iterator parseCharactersBeforeOrAfter(std::string::const_iterator pc){
+    
+    pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
+    if (pc == buffer.cend() || !isspace(*pc)) {
+        std::cerr << "parser error : Start tag expected, '<' not found\n";
+        exit(1);
+    }
+    return pc;
+}

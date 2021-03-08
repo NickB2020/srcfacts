@@ -221,11 +221,7 @@ int main() {
             pc = parseComment(pc, endpc, total);
         } else if (isCharactersBeforeOrAfter(depth, pc)) {
              // parse characters before or after XML
-            pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
-            if (pc == buffer.cend() || !isspace(*pc)) {
-                std::cerr << "parser error : Start tag expected, '<' not found\n";
-                return 1;
-            }
+            pc = parseCharactersBeforeOrAfter(pc);
         } else if (isXMLEntityCharacters(pc)) {
             // parse entity references
             std::string characters;

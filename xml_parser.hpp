@@ -60,4 +60,7 @@ std::string::const_iterator parseCDATA(std::string::const_iterator pc,  std::str
 // Parse a XML comment
 std::string::const_iterator parseComment(std::string::const_iterator pc,  std::string::const_iterator endpc, long& total);
 
+// Parse a XML character before or after XML
+std::string::const_iterator parseCharactersBeforeOrAfter(std::string::const_iterator pc);
+
 #endif
