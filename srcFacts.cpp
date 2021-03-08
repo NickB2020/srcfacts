@@ -49,6 +49,7 @@ int main() {
     std::string::const_iterator endpc;
     std::string::const_iterator pnameend;
     std::string::const_iterator pvalueend;
+    //std::string local_namebase;
     while (true) {
         if (std::distance(pc, buffer.cend()) < 5) {
             // refill buffer and adjust iterator
@@ -56,7 +57,6 @@ int main() {
             if (pc == buffer.cend())
                 break;
         } else if (isXMLDeclaration(pc)) {
-            
             // parse XML declaration
             pc = parseDeclaration(pc, endpc, total);
             // parse required version
@@ -67,38 +67,42 @@ int main() {
             pc = parseStandalone(pc, endpc, pnameend, pvalueend);
         } else if (isXMLEndTag(pc)) {
             // parse end tag
-                --depth;
+            //pc = parseEndTag(depth, total, pc, endpc, pnameend, pvalueend);
+            
+            --depth;
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             if (endpc == buffer.cend()) {
-                pc = refillBuffer(pc, buffer, total);
-                endpc = std::find(pc, buffer.cend(), '>');
-                if (endpc == buffer.cend()) {
-                    std::cerr << "parser error: Incomplete element end tag\n";
-                    return 1;
-                }
-            }
-            std::advance(pc, 2);
-            std::string::const_iterator pnameend = std::find_if(pc, std::next(endpc), [] (char c) { return isspace(c) || c == '>' || c == '/'; });
-            if (pnameend == std::next(endpc)) {
-                  std::cerr << "parser error: Incomplete element end tag name\n";
-                  return 1;
-            }
-            const std::string qname(pc, pnameend);
-            const auto colonpos = qname.find(':');
-            std::string prefixbase;
-            if (colonpos != std::string::npos)
-                prefixbase = qname.substr(0, colonpos);
-            const std::string prefix = std::move(prefixbase);
-            std::string local_namebase;
-            if (colonpos != std::string::npos)
-                local_namebase = qname.substr(colonpos + 1);
-            else
-                local_namebase = qname;
-            const std::string local_name = std::move(local_namebase);
-            pc = std::next(endpc);
+                           pc = refillBuffer(pc, buffer, total);
+                           endpc = std::find(pc, buffer.cend(), '>');
+                           if (endpc == buffer.cend()) {
+                               std::cerr << "parser error: Incomplete element end tag\n";
+                               return 1;
+                           }
+                       }
+                       std::advance(pc, 2);
+                       std::string::const_iterator pnameend = std::find_if(pc, std::next(endpc), [] (char c) { return isspace(c) || c == '>' || c == '/'; });
+                       if (pnameend == std::next(endpc)) {
+                             std::cerr << "parser error: Incomplete element end tag name\n";
+                             return 1;
+                       }
+                       const std::string qname(pc, pnameend);
+                       const auto colonpos = qname.find(':');
+                       std::string prefixbase;
+                       if (colonpos != std::string::npos)
+                           prefixbase = qname.substr(0, colonpos);
+                       const std::string prefix = std::move(prefixbase);
+                       std::string local_namebase;
+                       if (colonpos != std::string::npos)
+                           local_namebase = qname.substr(colonpos + 1);
+                       else
+                           local_namebase = qname;
+                       const std::string local_name = std::move(local_namebase);
+                       pc = std::next(endpc);
 
         } else if (isXMLStartTag(pc)) {
             // parse start tag
+            //pc =  parseStartTag(depth, total, pc, pnameend, pvalueend);
+
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             if (endpc == buffer.cend()) {
                 pc = refillBuffer(pc, buffer, total);
@@ -160,46 +164,7 @@ int main() {
                 ++line_comment_count;
         } else if (isXMLNamespace(intag, pc)) {
             // parse namespace
-            const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
-            std::string::const_iterator pnameend = std::find(pc, std::next(endpc), '=');
-            if (pnameend == std::next(endpc)) {
-                std::cerr << "parser error : incomplete namespace\n";
-                return 1;
-            }
-            pc = pnameend;
-            std::string prefix;
-            if (*pc == ':') {
-                std::advance(pc, 1);
-                prefix.assign(pc, pnameend);
-            }
-            pc = std::next(pnameend);
-            pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
-            if (pc == std::next(endpc)) {
-                std::cerr << "parser error : incomplete namespace\n";
-                return 1;
-            }
-            const char delim = *pc;
-            if (delim != '"' && delim != '\'') {
-                std::cerr << "parser error : incomplete namespace\n";
-                return 1;
-            }
-            std::advance(pc, 1);
-            std::string::const_iterator pvalueend = std::find(pc, std::next(endpc), delim);
-            if (pvalueend == std::next(endpc)) {
-                std::cerr << "parser error : incomplete namespace\n";
-                return 1;
-            }
-            const std::string uri(pc, pvalueend);
-            pc = std::next(pvalueend);
-            pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
-            if (intag && *pc == '>') {
-                std::advance(pc, 1);
-                intag = false;
-            }
-            if (intag && *pc == '/' && *std::next(pc) == '>') {
-                std::advance(pc, 2);
-                intag = false;
-            }
+            pc = parseNameSpace(intag, pc, endpc, pnameend, pvalueend);
         } else if (isXMLAttribute(intag, pc)) {
             // parse attribute
             const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');

@@ -51,4 +51,7 @@ std::string::const_iterator parseEncoding(std::string::const_iterator pc, std::s
 // parse a XML standalone
 std::string::const_iterator parseStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
+// parse a XML namespace
+std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+
 #endif

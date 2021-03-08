@@ -201,3 +201,51 @@ std::string::const_iterator parseStandalone(std::string::const_iterator pc, std:
 
         return pc;
     }
+
+
+// Parse a XML namespace
+std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend){
+
+        endpc = std::find(pc, buffer.cend(), '>');
+        pnameend = std::find(pc, std::next(endpc), '=');
+        if (pnameend == std::next(endpc)) {
+            std::cerr << "parser error : incomplete namespace\n";
+            exit(1);
+            }
+        pc = pnameend;
+        std::string prefix;
+        if (*pc == ':') {
+            std::advance(pc, 1);
+            prefix.assign(pc, pnameend);
+            }
+        pc = std::next(pnameend);
+        pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
+        if (pc == std::next(endpc)) {
+            std::cerr << "parser error : incomplete namespace\n";
+            exit(1);
+            }
+        const char delim = *pc;
+        if (delim != '"' && delim != '\'') {
+            std::cerr << "parser error : incomplete namespace\n";
+            exit(1);
+            }
+        std::advance(pc, 1);
+        pvalueend = std::find(pc, std::next(endpc), delim);
+        if (pvalueend == std::next(endpc)) {
+            std::cerr << "parser error : incomplete namespace\n";
+            exit(1);
+            }
+        const std::string uri(pc, pvalueend);
+        pc = std::next(pvalueend);
+        pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
+        if (intag && *pc == '>') {
+            std::advance(pc, 1);
+            intag = false;
+            }
+        if (intag && *pc == '/' && *std::next(pc) == '>') {
+            std::advance(pc, 2);
+            intag = false;
+            }
+    
+    return pc;
+}
