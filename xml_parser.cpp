@@ -249,3 +249,24 @@ std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterat
     
     return pc;
 }
+
+// Parse a XML CDATA
+std::string::const_iterator parseCDATA(std::string::const_iterator pc,  std::string::const_iterator endpc, int loc, int textsize, long& total){
+    
+    const std::string endcdata = "]]>";
+    std::advance(pc, strlen("<![CDATA["));
+    endpc = std::search(pc, buffer.cend(), endcdata.begin(), endcdata.end());
+    if (endpc == buffer.cend()) {
+        pc = refillBuffer(pc, buffer, total);
+        endpc = std::search(pc, buffer.cend(), endcdata.begin(), endcdata.end());
+        if (endpc == buffer.cend())
+           exit(1);
+    }
+    const std::string characters(pc, endpc);
+    textsize += (int) characters.size();
+    loc += (int) std::count(characters.begin(), characters.end(), '\n');
+    pc = std::next(endpc, strlen("]]>"));
+    
+    return pc;
+    
+}

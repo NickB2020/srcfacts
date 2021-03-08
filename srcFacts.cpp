@@ -215,19 +215,7 @@ int main() {
             }
         } else if (isXMLCDATA(pc)) {
             // parse CDATA
-            const std::string endcdata = "]]>";
-            std::advance(pc, strlen("<![CDATA["));
-            std::string::const_iterator endpc = std::search(pc, buffer.cend(), endcdata.begin(), endcdata.end());
-            if (endpc == buffer.cend()) {
-                pc = refillBuffer(pc, buffer, total);
-                endpc = std::search(pc, buffer.cend(), endcdata.begin(), endcdata.end());
-                if (endpc == buffer.cend())
-                    return 1;
-            }
-            const std::string characters(pc, endpc);
-            textsize += (int) characters.size();
-            loc += (int) std::count(characters.begin(), characters.end(), '\n');
-            pc = std::next(endpc, strlen("]]>"));
+            pc = parseCDATA(pc, endpc, loc, textsize, total);
         } else if (isXMLComment(pc)) {
             // parse XML comment
             const std::string endcomment = "-->";
@@ -296,7 +284,7 @@ int main() {
     }
     
     // srcFacts compose report
-    std::cout << "# srcFacts: " << url << '\n';
+    std::cout << "# srcFacts: " << url <<'\n';
     std::cout << "| Item | Count |\n";
     std::cout << "|:-----|-----:|\n";
     std::cout << "| srcML | " << total << " |\n";
