@@ -47,6 +47,8 @@ int main() {
     std::string buffer(BUFFER_SIZE, ' ');
     auto pc = buffer.cend();
     std::string::const_iterator endpc;
+    std::string::const_iterator pnameend;
+    std::string::const_iterator pvalueend;
     while (true) {
         if (std::distance(pc, buffer.cend()) < 5) {
             // refill buffer and adjust iterator
@@ -56,35 +58,9 @@ int main() {
         } else if (isXMLDeclaration(pc)) {
             
             // parse XML declaration
-            std::string name;
             pc = parseDeclaration(pc, endpc, total);
             // parse required version
-            if (pc == endpc) {
-                std::cerr << "parser error: Missing space after before version in XML declaration\n";
-                return 1;
-                }
-            std::string::const_iterator pnameend = std::find(pc, endpc, '=');
-            const std::string attr(pc, pnameend);
-            pc = pnameend;
-            std::advance(pc, 1);
-            char delim = *pc;
-            if (delim != '"' && delim != '\'') {
-                std::cerr << "parser error: Invalid start delimiter for version in XML declaration\n";
-                return 1;
-                }
-            std::advance(pc, 1);
-            std::string::const_iterator pvalueend = std::find(pc, endpc, delim);
-            if (pvalueend == endpc) {
-                std::cerr << "parser error: Invalid end delimiter for version in XML declaration\n";
-                return 1;
-                }
-            if (attr != "version") {
-                std::cerr << "parser error: Missing required first attribute version in XML declaration\n";
-                return 1;
-                }
-            const std::string version(pc, pvalueend);
-            pc = std::next(pvalueend);
-           pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+            pc = parseRequiredVersion(pc, endpc);
              //parse encoding
             if (pc == endpc) {
                 std::cerr << "parser error: Missing required encoding in XML declaration\n";
