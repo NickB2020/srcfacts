@@ -62,36 +62,7 @@ int main() {
             // parse required version
             pc = parseRequiredVersion(pc, endpc);
              //parse encoding
-            if (pc == endpc) {
-                std::cerr << "parser error: Missing required encoding in XML declaration\n";
-                return 1;
-                }
-            pnameend = std::find(pc, endpc, '=');
-            if (pnameend == endpc) {
-                std::cerr << "parser error: Incomple encoding in XML declaration\n";
-                return 1;
-                }
-            const std::string attr2(pc, pnameend);
-            pc = pnameend;
-            std::advance(pc, 1);
-            char delim2 = *pc;
-            if (delim2 != '"' && delim2 != '\'') {
-                std::cerr << "parser error: Invalid end delimiter for encoding in XML declaration\n";
-                return 1;
-                }
-                std::advance(pc, 1);
-                pvalueend = std::find(pc, endpc, delim2);
-                if (pvalueend == endpc) {
-                    std::cerr << "parser error: Incomple encoding in XML declaration\n";
-                    return 1;
-                    }
-                if (attr2 != "encoding") {
-                    std::cerr << "parser error: Missing required encoding in XML declaration\n";
-                    return 1;
-                    }
-                const std::string encoding(pc, pvalueend);
-                pc = std::next(pvalueend);
-                pc = std::find_if_not(pc, endpc, [] (char c) { return isspace(c); });
+            pc = parseEncoding(pc, endpc, pnameend, pvalueend);
                  //parse standalone
                 if (pc == endpc) {
                     std::cerr << "parser error: Missing required third attribute standalone in XML declaration\n";
