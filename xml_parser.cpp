@@ -268,5 +268,23 @@ std::string::const_iterator parseCDATA(std::string::const_iterator pc,  std::str
     pc = std::next(endpc, strlen("]]>"));
     
     return pc;
+}
+
+// Parse a XML comment
+std::string::const_iterator parseComment(std::string::const_iterator pc,  std::string::const_iterator endpc, long& total){
+
+    const std::string endcomment = "-->";
+    endpc = std::search(pc, buffer.cend(), endcomment.begin(), endcomment.end());
+    if (endpc == buffer.cend()) {
+        pc = refillBuffer(pc, buffer, total);
+        endpc = std::search(pc, buffer.cend(), endcomment.begin(), endcomment.end());
+        if (endpc == buffer.cend()) {
+            std::cerr << "parser error : Unterminated XML comment\n";
+            exit(1);
+        }
+    }
+    pc = std::next(endpc, strlen("-->"));
+    pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
     
+    return pc;
 }

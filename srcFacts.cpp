@@ -218,18 +218,7 @@ int main() {
             pc = parseCDATA(pc, endpc, loc, textsize, total);
         } else if (isXMLComment(pc)) {
             // parse XML comment
-            const std::string endcomment = "-->";
-            std::string::const_iterator endpc = std::search(pc, buffer.cend(), endcomment.begin(), endcomment.end());
-            if (endpc == buffer.cend()) {
-                pc = refillBuffer(pc, buffer, total);
-                endpc = std::search(pc, buffer.cend(), endcomment.begin(), endcomment.end());
-                if (endpc == buffer.cend()) {
-                    std::cerr << "parser error : Unterminated XML comment\n";
-                    return 1;
-                }
-            }
-            pc = std::next(endpc, strlen("-->"));
-            pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });
+            pc = parseComment(pc, endpc, total);
         } else if (isCharactersBeforeOrAfter(depth, pc)) {
              // parse characters before or after XML
             pc = std::find_if_not(pc, buffer.cend(), [] (char c) { return isspace(c); });

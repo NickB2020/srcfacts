@@ -57,4 +57,7 @@ std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterat
 // parse a XML CDATA
 std::string::const_iterator parseCDATA(std::string::const_iterator pc,  std::string::const_iterator endpc, int loc, int textsize, long& total);
 
+// Parse a XML comment
+std::string::const_iterator parseComment(std::string::const_iterator pc,  std::string::const_iterator endpc, long& total);
+
 #endif
