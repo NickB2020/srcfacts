@@ -223,7 +223,7 @@ int main() {
         } else if (parser.isXMLComment(pc)) {
             // parse XML comment
             pc = parseComment(pc, endpc, total);
-        } else if (isCharactersBeforeOrAfter(depth, pc)) {
+        } else if (parser.isCharactersBeforeOrAfter(depth, pc)) {
              // parse characters before or after XML
             pc = parseCharactersBeforeOrAfter(pc);
         } else if (isXMLEntityCharacters(pc)) {

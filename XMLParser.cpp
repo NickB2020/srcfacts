@@ -48,3 +48,9 @@ bool XMLParser::isXMLComment(std::string::const_iterator pc) {
     
     return ::isXMLComment(pc);
 }
+
+// is parsing at characters before or after XML
+bool XMLParser::isCharactersBeforeOrAfter(int depth, std::string::const_iterator pc) {
+    
+    return ::isCharactersBeforeOrAfter(depth, pc);
+}
