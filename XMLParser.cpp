@@ -115,5 +115,12 @@ std::string::const_iterator XMLParser::parseNameSpace(bool intag, std::string::c
 //    return ::parseAttribute(url, intag, pc, endpc, pnameend, pvalueend);
 //}
 
+// parse a XML CDATA
+std::string::const_iterator XMLParser::parseCDATA(std::string::const_iterator pc,  std::string::const_iterator endpc, int loc, int textsize, long& total) {
+    
+    return ::parseCDATA(pc, endpc, loc, textsize, total);
+}
+
+
 
 

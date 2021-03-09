@@ -63,7 +63,10 @@ public:
     std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
     // parse a XML attribute
-    std::string::const_iterator parseAttribute(std::string url, bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+    std::string::const_iterator parseAttribute(std::string url, bool intag, std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+
+    // parse a XML CDATA
+    std::string::const_iterator parseCDATA(std::string::const_iterator pc,  std::string::const_iterator endpc, int loc, int textsize, long& total);
 
 };
 

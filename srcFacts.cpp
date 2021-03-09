@@ -219,7 +219,7 @@ int main() {
             }
         } else if (parser.isXMLCDATA(pc)) {
             // parse CDATA
-            pc = parseCDATA(pc, endpc, loc, textsize, total);
+            pc = parser.parseCDATA(pc, endpc, loc, textsize, total);
         } else if (parser.isXMLComment(pc)) {
             // parse XML comment
             pc = parseComment(pc, endpc, total);
