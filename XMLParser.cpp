@@ -127,6 +127,12 @@ std::string::const_iterator XMLParser::parseComment(std::string::const_iterator 
     return ::parseComment(pc, endpc, total);
 }
 
+// parse a XML character before or after XML
+std::string::const_iterator XMLParser::parseCharactersBeforeOrAfter(std::string::const_iterator pc) {
+    
+    return ::parseCharactersBeforeOrAfter(pc);
+}
+
 
 
 

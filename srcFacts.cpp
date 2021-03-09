@@ -225,7 +225,7 @@ int main() {
             pc = parser.parseComment(pc, endpc, total);
         } else if (parser.isCharactersBeforeOrAfter(depth, pc)) {
              // parse characters before or after XML
-            pc = parseCharactersBeforeOrAfter(pc);
+            pc = parser.parseCharactersBeforeOrAfter(pc);
         } else if (parser.isXMLEntityCharacters(pc)) {
             // parse entity references
            // pc = parseEntityReference(pc, textsize, total);
