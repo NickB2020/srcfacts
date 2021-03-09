@@ -9,7 +9,6 @@
     * Well-formedness is not checked
 */
 
-#include "xml_parser.hpp"
 #include "XMLParser.hpp"
 #include <iostream>
 #include <iterator>
