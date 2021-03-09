@@ -49,7 +49,8 @@ int main() {
     std::string::const_iterator endpc;
     std::string::const_iterator pnameend;
     std::string::const_iterator pvalueend;
-    //std::string local_namebase;
+    std::string local_namebase;
+    const std::string local_name = std::move(local_namebase);
     while (true) {
         if (std::distance(pc, buffer.cend()) < 5) {
             // refill buffer and adjust iterator
@@ -67,7 +68,7 @@ int main() {
             pc = parseStandalone(pc, endpc, pnameend, pvalueend);
         } else if (isXMLEndTag(pc)) {
             // parse end tag
-            //pc = parseEndTag(depth, total, pc, endpc, pnameend, pvalueend);
+           // pc = parseEndTag(pc, pvalueend, depth, total);
             
             --depth;
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
@@ -101,7 +102,7 @@ int main() {
 
         } else if (isXMLStartTag(pc)) {
             // parse start tag
-            //pc =  parseStartTag(depth, total, pc, pnameend, pvalueend);
+            //pc =  parseStartTag(depth, total, intag, pc, endpc, pnameend, pvalueend, local_name);
 
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             if (endpc == buffer.cend()) {
@@ -167,6 +168,7 @@ int main() {
             pc = parseNameSpace(intag, pc, endpc, pnameend, pvalueend);
         } else if (isXMLAttribute(intag, pc)) {
             // parse attribute
+               // pc = parseAttribute(url, intag, pc, endpc, pnameend, pvalueend);
             const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             std::string::const_iterator pnameend = std::find(pc, std::next(endpc), '=');
             if (pnameend == std::next(endpc))
@@ -224,6 +226,7 @@ int main() {
             pc = parseCharactersBeforeOrAfter(pc);
         } else if (isXMLEntityCharacters(pc)) {
             // parse entity references
+           // pc = parseEntityReference(pc, textsize, total);
             std::string characters;
             if (std::distance(pc, buffer.cend()) < 3) {
                 pc = refillBuffer(pc, buffer, total);
@@ -260,6 +263,7 @@ int main() {
             textsize += (int) characters.size();
         } else if (isXMLCharacters(pc)) {
             // parse characters
+           // pc = parseCharacters(pc, loc, textsize);
             const std::string::const_iterator endpc = std::find_if(pc, buffer.cend(), [] (char c) { return c == '<' || c == '&'; });
             const std::string characters(pc, endpc);
             loc += (int) std::count(characters.cbegin(), characters.cend(), '\n');

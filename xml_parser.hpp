@@ -51,16 +51,31 @@ std::string::const_iterator parseEncoding(std::string::const_iterator pc, std::s
 // parse a XML standalone
 std::string::const_iterator parseStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
+// parse a XML end tag
+std::string::const_iterator parseEndTag(std::string::const_iterator pc, std::string::const_iterator pvalueend, int depth, long& total);
+
+// parse a XML start tag
+std::string::const_iterator parseStartTag(int depth, long& total, bool intag, std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend,std::string::const_iterator pvalueend, const std::string local_name);
+
 // parse a XML namespace
 std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+
+// parse a XML attribute
+std::string::const_iterator parseAttribute(std::string url, bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
 // parse a XML CDATA
 std::string::const_iterator parseCDATA(std::string::const_iterator pc,  std::string::const_iterator endpc, int loc, int textsize, long& total);
 
-// Parse a XML comment
+// parse a XML comment
 std::string::const_iterator parseComment(std::string::const_iterator pc,  std::string::const_iterator endpc, long& total);
 
-// Parse a XML character before or after XML
+// parse a XML character before or after XML
 std::string::const_iterator parseCharactersBeforeOrAfter(std::string::const_iterator pc);
+
+// parse a XML entity references
+std::string::const_iterator parseEntityReference(std::string::const_iterator pc, int textsize, long& total);
+
+// parse a XML characters
+std::string::const_iterator parseCharacters(std::string::const_iterator pc, int loc, int textsize);
 
 #endif
