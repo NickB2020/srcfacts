@@ -104,7 +104,7 @@ int main() {
 
         } else if (parser.isXMLStartTag(pc)) {
             // parse start tag
-            //pc =  parseStartTag(depth, total, intag, pc, endpc, pnameend, pvalueend, local_name);
+            //pc =  parser.parseStartTag(depth, total, intag, pc, endpc, pnameend, pvalueend, local_name);
 
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             if (endpc == buffer.cend()) {

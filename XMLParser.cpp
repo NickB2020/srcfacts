@@ -97,3 +97,9 @@ std::string::const_iterator XMLParser::parseEndTag(std::string::const_iterator p
     return ::parseEndTag(pc, pvalueend, depth, total);
 }
 
+// parse a XML start tag
+std::string::const_iterator XMLParser::parseStartTag(int depth, long& total, bool intag, std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend,std::string::const_iterator pvalueend, const std::string local_name) {
+    
+    return ::parseStartTag(depth, total, intag, pc, endpc, pnameend, pvalueend, local_name);
+}
+

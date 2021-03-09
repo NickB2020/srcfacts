@@ -56,6 +56,9 @@ public:
     // parse a XML end tag
     std::string::const_iterator parseEndTag(std::string::const_iterator pc, std::string::const_iterator pvalueend, int depth, long& total);
 
+    // parse a XML start tag
+    std::string::const_iterator parseStartTag(int depth, long& total, bool intag, std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend,std::string::const_iterator pvalueend, const std::string local_name);
+
 };
 
 #endif
