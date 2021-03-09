@@ -61,7 +61,7 @@ int main() {
                 break;
         } else if (parser.isXMLDeclaration(pc)) {
             // parse XML declaration
-            pc = parseDeclaration(pc, endpc, total);
+            pc = parser.parseDeclaration(pc, endpc, total);
             // parse required version
             pc = parseRequiredVersion(pc, endpc);
              //parse encoding

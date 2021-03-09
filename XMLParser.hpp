@@ -41,6 +41,9 @@ public:
     // is parsing at a XML characters
     bool isXMLCharacters(std::string::const_iterator pc);
 
+    // parse declaration
+    std::string::const_iterator parseDeclaration(std::string::const_iterator pc, std::string::const_iterator endpc, long& total);
+
 };
 
 #endif

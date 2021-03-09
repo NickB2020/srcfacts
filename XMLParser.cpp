@@ -66,3 +66,9 @@ bool XMLParser::isXMLCharacters(std::string::const_iterator pc) {
     
     return ::isXMLCharacters(pc);
 }
+
+// parse declaration
+std::string::const_iterator XMLParser::parseDeclaration(std::string::const_iterator pc, std::string::const_iterator endpc, long& total) {
+     
+    return ::parseDeclaration(pc, endpc, total);
+}
