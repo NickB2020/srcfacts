@@ -73,6 +73,9 @@ public:
     
     // parse a XML character before or after XML
     std::string::const_iterator parseCharactersBeforeOrAfter(std::string::const_iterator pc);
+    
+    // parse a XML entity references
+    std::string::const_iterator parseEntityReference(std::string::const_iterator pc, int textsize, long& total);
 
 };
 

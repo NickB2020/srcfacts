@@ -228,7 +228,7 @@ int main() {
             pc = parser.parseCharactersBeforeOrAfter(pc);
         } else if (parser.isXMLEntityCharacters(pc)) {
             // parse entity references
-           // pc = parseEntityReference(pc, textsize, total);
+           // pc = parser.parseEntityReference(pc, textsize, total);
             std::string characters;
             if (std::distance(pc, buffer.cend()) < 3) {
                 pc = refillBuffer(pc, buffer, total);
