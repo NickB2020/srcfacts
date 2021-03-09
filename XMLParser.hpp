@@ -16,6 +16,9 @@ public:
     
     // is parsing at a XML end tag
     bool isXMLEndTag(std::string::const_iterator pc);
+    
+    // is parsing at a XML start tag
+    bool isXMLStartTag(std::string::const_iterator pc);
 
 };
 

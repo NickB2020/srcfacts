@@ -102,7 +102,7 @@ int main() {
                        const std::string local_name = std::move(local_namebase);
                        pc = std::next(endpc);
 
-        } else if (isXMLStartTag(pc)) {
+        } else if (parser.isXMLStartTag(pc)) {
             // parse start tag
             //pc =  parseStartTag(depth, total, intag, pc, endpc, pnameend, pvalueend, local_name);
 

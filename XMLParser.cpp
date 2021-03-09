@@ -19,3 +19,8 @@ bool XMLParser::isXMLEndTag(std::string::const_iterator pc) {
     return ::isXMLEndTag(pc);
 }
 
+// is parsing at a XML start tag
+bool XMLParser::isXMLStartTag(std::string::const_iterator pc) {
+    
+    return ::isXMLStartTag(pc);
+}
