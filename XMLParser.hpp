@@ -22,6 +22,9 @@ public:
     
     // is parsing at a XML Namespace
     bool isXMLNamespace(bool intag, std::string::const_iterator pc);
+    
+    // is parsing at a XML attribute
+    bool isXMLAttribute(bool intag, std::string::const_iterator pc);
 
 };
 

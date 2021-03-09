@@ -30,3 +30,9 @@ bool XMLParser::isXMLNamespace(bool intag, std::string::const_iterator pc) {
     
     return ::isXMLNamespace(intag, pc);
 }
+
+// is parsing at a XML attribute
+bool XMLParser::isXMLAttribute(bool intag, std::string::const_iterator pc) {
+    
+    return ::isXMLAttribute(intag, pc);
+}

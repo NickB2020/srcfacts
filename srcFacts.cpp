@@ -168,7 +168,7 @@ int main() {
         } else if (parser.isXMLNamespace(intag, pc)) {
             // parse namespace
             pc = parseNameSpace(intag, pc, endpc, pnameend, pvalueend);
-        } else if (isXMLAttribute(intag, pc)) {
+        } else if (parser.isXMLAttribute(intag, pc)) {
             // parse attribute
                // pc = parseAttribute(url, intag, pc, endpc, pnameend, pvalueend);
             const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
