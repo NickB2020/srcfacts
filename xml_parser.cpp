@@ -487,4 +487,3 @@ std::string::const_iterator parseCharacters(std::string::const_iterator pc, int 
     
     return pc;
 }
-
