@@ -13,6 +13,9 @@ class XMLParser {
 public:
     // is parsing at a XML declaration
     bool isXMLDeclaration(std::string::const_iterator pc);
+    
+    // is parsing at a XML end tag
+    bool isXMLEndTag(std::string::const_iterator pc);
 
 };
 
