@@ -103,3 +103,10 @@ std::string::const_iterator XMLParser::parseStartTag(int depth, long& total, boo
     return ::parseStartTag(depth, total, intag, pc, endpc, pnameend, pvalueend, local_name);
 }
 
+// parse a XML namespace
+std::string::const_iterator XMLParser::parseNameSpace(bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend) {
+    
+    return ::parseNameSpace(intag, pc, endpc, pnameend, pvalueend);
+}
+
+
