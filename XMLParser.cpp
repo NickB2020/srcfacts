@@ -84,3 +84,9 @@ std::string::const_iterator XMLParser::parseEncoding(std::string::const_iterator
     
     return ::parseEncoding(pc, endpc, pnameend, pvalueend);
 }
+
+// parse a XML standalone
+std::string::const_iterator XMLParser::parseStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend) {
+    
+    return ::parseStandalone(pc, endpc, pnameend, pvalueend);
+}

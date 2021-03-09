@@ -67,7 +67,7 @@ int main() {
              //parse encoding
             pc = parser.parseEncoding(pc, endpc, pnameend, pvalueend);
             //parse standalone
-            pc = parseStandalone(pc, endpc, pnameend, pvalueend);
+            pc = parser.parseStandalone(pc, endpc, pnameend, pvalueend);
         } else if (parser.isXMLEndTag(pc)) {
             // parse end tag
            // pc = parseEndTag(pc, pvalueend, depth, total);
