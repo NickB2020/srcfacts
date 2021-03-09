@@ -263,7 +263,7 @@ int main() {
                 std::advance(pc, 1);
             }
             textsize += (int) characters.size();
-        } else if (isXMLCharacters(pc)) {
+        } else if (parser.isXMLCharacters(pc)) {
             // parse characters
            // pc = parseCharacters(pc, loc, textsize);
             const std::string::const_iterator endpc = std::find_if(pc, buffer.cend(), [] (char c) { return c == '<' || c == '&'; });

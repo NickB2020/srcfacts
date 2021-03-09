@@ -60,3 +60,9 @@ bool XMLParser::isXMLEntityCharacters(std::string::const_iterator pc) {
     
     return ::isXMLEntityCharacters(pc);
 }
+
+// is parsing at a XML characters
+bool XMLParser::isXMLCharacters(std::string::const_iterator pc) {
+    
+    return ::isXMLCharacters(pc);
+}

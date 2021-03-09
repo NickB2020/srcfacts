@@ -38,6 +38,9 @@ public:
     // is parsing at a XML entity characters
     bool isXMLEntityCharacters(std::string::const_iterator pc);
 
+    // is parsing at a XML characters
+    bool isXMLCharacters(std::string::const_iterator pc);
+
 };
 
 #endif
