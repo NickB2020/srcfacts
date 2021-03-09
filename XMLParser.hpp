@@ -53,6 +53,9 @@ public:
     // parse a XML standalone
     std::string::const_iterator parseStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
+    // parse a XML end tag
+    std::string::const_iterator parseEndTag(std::string::const_iterator pc, std::string::const_iterator pvalueend, int depth, long& total);
+
 };
 
 #endif

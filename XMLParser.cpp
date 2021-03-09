@@ -90,3 +90,10 @@ std::string::const_iterator XMLParser::parseStandalone(std::string::const_iterat
     
     return ::parseStandalone(pc, endpc, pnameend, pvalueend);
 }
+
+// parse a XML end tag
+std::string::const_iterator XMLParser::parseEndTag(std::string::const_iterator pc, std::string::const_iterator pvalueend, int depth, long& total) {
+    
+    return ::parseEndTag(pc, pvalueend, depth, total);
+}
+

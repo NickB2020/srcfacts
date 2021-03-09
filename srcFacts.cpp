@@ -70,7 +70,7 @@ int main() {
             pc = parser.parseStandalone(pc, endpc, pnameend, pvalueend);
         } else if (parser.isXMLEndTag(pc)) {
             // parse end tag
-           // pc = parseEndTag(pc, pvalueend, depth, total);
+           // pc = parser.parseEndTag(pc, pvalueend, depth, total);
             
             --depth;
             std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
