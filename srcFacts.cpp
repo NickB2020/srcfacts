@@ -10,6 +10,7 @@
 */
 
 #include "xml_parser.hpp"
+#include "XMLParser.hpp"
 #include <iostream>
 #include <iterator>
 #include <string>
@@ -51,6 +52,7 @@ int main() {
     std::string::const_iterator pvalueend;
     std::string local_namebase;
     const std::string local_name = std::move(local_namebase);
+    XMLParser parser;
     while (true) {
         if (std::distance(pc, buffer.cend()) < 5) {
             // refill buffer and adjust iterator
