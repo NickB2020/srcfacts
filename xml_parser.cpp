@@ -333,7 +333,7 @@ std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterat
 }
 
 // Parse a XML attribute
-std::string::const_iterator parseAttribute(std::string& url, bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend){
+std::string::const_iterator parseAttribute(std::string url, bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend){
     
     endpc = std::find(pc, buffer.cend(), '>');
     pnameend = std::find(pc, std::next(endpc), '=');

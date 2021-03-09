@@ -16,76 +16,76 @@ public:
     XMLParser();
     
     // is done parsing
-    bool isDone(std::string::const_iterator pc, std::string::const_iterator end);
+    bool isDone(std::string::const_iterator end);
     
     // is parsing at a XML declaration
-    bool isXMLDeclaration(std::string::const_iterator pc);
+    bool isXMLDeclaration();
     
     // is parsing at a XML end tag
-    bool isXMLEndTag(std::string::const_iterator pc);
+    bool isXMLEndTag();
     
     // is parsing at a XML start tag
-    bool isXMLStartTag(std::string::const_iterator pc);
+    bool isXMLStartTag();
     
     // is parsing at a XML Namespace
-    bool isXMLNamespace(bool intag, std::string::const_iterator pc);
+    bool isXMLNamespace(bool intag);
     
     // is parsing at a XML attribute
-    bool isXMLAttribute(bool intag, std::string::const_iterator pc);
+    bool isXMLAttribute(bool intag);
     
     // is parsing at a XML CDATA
-    bool isXMLCDATA(std::string::const_iterator pc);
+    bool isXMLCDATA();
     
     // is parsing at a XML comment
-    bool isXMLComment(std::string::const_iterator pc);
+    bool isXMLComment();
 
     // is parsing at characters before or after XML
-    bool isCharactersBeforeOrAfter(int depth, std::string::const_iterator pc);
+    bool isCharactersBeforeOrAfter(int depth);
 
     // is parsing at a XML entity characters
-    bool isXMLEntityCharacters(std::string::const_iterator pc);
+    bool isXMLEntityCharacters();
 
     // is parsing at a XML characters
-    bool isXMLCharacters(std::string::const_iterator pc);
+    bool isXMLCharacters();
 
     // parse declaration
-    std::string::const_iterator parseDeclaration(std::string::const_iterator pc, std::string::const_iterator endpc, long& total);
+    void parseDeclaration( std::string::const_iterator endpc, long& total);
 
     // parse required version
-    std::string::const_iterator parseRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc);
+    void parseRequiredVersion(std::string::const_iterator endpc);
 
     // parse a XML encoding
-    std::string::const_iterator parseEncoding(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+    void parseEncoding( std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
     // parse a XML standalone
-    std::string::const_iterator parseStandalone(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+    void parseStandalone( std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
     // parse a XML end tag
-    std::string::const_iterator parseEndTag(std::string::const_iterator pc, std::string::const_iterator pvalueend, int depth, long& total);
+    void parseEndTag( std::string::const_iterator pvalueend, int depth, long& total);
 
     // parse a XML start tag
-    std::string::const_iterator parseStartTag(int depth, long& total, bool intag, std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend,std::string::const_iterator pvalueend, const std::string local_name);
+    void parseStartTag(int depth, long& total, bool intag, std::string::const_iterator endpc, std::string::const_iterator pnameend,std::string::const_iterator pvalueend, const std::string local_name);
 
     // parse a XML namespace
-    std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+    void parseNameSpace(bool intag,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
     // parse a XML attribute
-    std::string::const_iterator parseAttribute(std::string url, bool intag, std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+    void parseAttribute(std::string url, bool intag, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
     // parse a XML CDATA
-    std::string::const_iterator parseCDATA(std::string::const_iterator pc,  std::string::const_iterator endpc, int loc, int textsize, long& total);
+    void parseCDATA(  std::string::const_iterator endpc, int loc, int textsize, long& total);
 
     // parse a XML comment
-    std::string::const_iterator parseComment(std::string::const_iterator pc,  std::string::const_iterator endpc, long& total);
+    void parseComment(  std::string::const_iterator endpc, long& total);
     
     // parse a XML character before or after XML
-    std::string::const_iterator parseCharactersBeforeOrAfter(std::string::const_iterator pc);
+    void parseCharactersBeforeOrAfter(std::string::const_iterator pc);
     
     // parse a XML entity references
-    std::string::const_iterator parseEntityReference(std::string::const_iterator pc, int textsize, long& total);
+    void parseEntityReference( int textsize, long& total);
     
     // parse a XML characters
-    std::string::const_iterator parseCharacters(std::string::const_iterator pc, int loc, int textsize);
+    void parseCharacters( int loc, int textsize);
 
 private:
     std::string::const_iterator pc;
