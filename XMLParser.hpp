@@ -7,8 +7,13 @@
 #ifndef INCLUDED_XMLPARSER_HPP
 #define INCLUDED_XMLPARSER_HPP
 
+#include <string>
+
 class XMLParser {
-    
+public:
+    // is parsing at a XML declaration
+    bool isXMLDeclaration(std::string::const_iterator pc);
+
 };
 
 #endif

@@ -59,7 +59,7 @@ int main() {
             pc = refillBuffer(pc, buffer, total);
             if (pc == buffer.cend())
                 break;
-        } else if (isXMLDeclaration(pc)) {
+        } else if (parser.isXMLDeclaration(pc)) {
             // parse XML declaration
             pc = parseDeclaration(pc, endpc, total);
             // parse required version
