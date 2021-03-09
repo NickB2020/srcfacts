@@ -78,3 +78,9 @@ std::string::const_iterator XMLParser::parseRequiredVersion(std::string::const_i
     
     return ::parseRequiredVersion(pc, endpc);
 }
+
+// parse a XML encoding
+std::string::const_iterator XMLParser::parseEncoding(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend) {
+    
+    return ::parseEncoding(pc, endpc, pnameend, pvalueend);
+}

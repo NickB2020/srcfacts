@@ -65,7 +65,7 @@ int main() {
             // parse required version
             pc = parser.parseRequiredVersion(pc, endpc);
              //parse encoding
-            pc = parseEncoding(pc, endpc, pnameend, pvalueend);
+            pc = parser.parseEncoding(pc, endpc, pnameend, pvalueend);
             //parse standalone
             pc = parseStandalone(pc, endpc, pnameend, pvalueend);
         } else if (parser.isXMLEndTag(pc)) {

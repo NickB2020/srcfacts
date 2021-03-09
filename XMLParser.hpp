@@ -47,6 +47,9 @@ public:
     // parse required version
     std::string::const_iterator parseRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc);
 
+    // parse a XML encoding
+    std::string::const_iterator parseEncoding(std::string::const_iterator pc, std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+
 };
 
 #endif
