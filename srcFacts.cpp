@@ -63,7 +63,7 @@ int main() {
             // parse XML declaration
             pc = parser.parseDeclaration(pc, endpc, total);
             // parse required version
-            pc = parseRequiredVersion(pc, endpc);
+            pc = parser.parseRequiredVersion(pc, endpc);
              //parse encoding
             pc = parseEncoding(pc, endpc, pnameend, pvalueend);
             //parse standalone

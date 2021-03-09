@@ -72,3 +72,9 @@ std::string::const_iterator XMLParser::parseDeclaration(std::string::const_itera
      
     return ::parseDeclaration(pc, endpc, total);
 }
+
+// parse required version
+std::string::const_iterator XMLParser::parseRequiredVersion(std::string::const_iterator pc, std::string::const_iterator endpc) {
+    
+    return ::parseRequiredVersion(pc, endpc);
+}
