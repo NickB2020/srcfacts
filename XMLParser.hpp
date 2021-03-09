@@ -68,6 +68,9 @@ public:
     // parse a XML CDATA
     std::string::const_iterator parseCDATA(std::string::const_iterator pc,  std::string::const_iterator endpc, int loc, int textsize, long& total);
 
+    // parse a XML comment
+    std::string::const_iterator parseComment(std::string::const_iterator pc,  std::string::const_iterator endpc, long& total);
+
 };
 
 #endif

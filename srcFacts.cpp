@@ -222,7 +222,7 @@ int main() {
             pc = parser.parseCDATA(pc, endpc, loc, textsize, total);
         } else if (parser.isXMLComment(pc)) {
             // parse XML comment
-            pc = parseComment(pc, endpc, total);
+            pc = parser.parseComment(pc, endpc, total);
         } else if (parser.isCharactersBeforeOrAfter(depth, pc)) {
              // parse characters before or after XML
             pc = parseCharactersBeforeOrAfter(pc);

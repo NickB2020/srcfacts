@@ -121,6 +121,12 @@ std::string::const_iterator XMLParser::parseCDATA(std::string::const_iterator pc
     return ::parseCDATA(pc, endpc, loc, textsize, total);
 }
 
+// parse a XML comment
+std::string::const_iterator XMLParser::parseComment(std::string::const_iterator pc,  std::string::const_iterator endpc, long& total) {
+    
+    return ::parseComment(pc, endpc, total);
+}
+
 
 
 
