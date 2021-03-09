@@ -51,12 +51,13 @@ int main() {
     std::string::const_iterator pvalueend;
     std::string local_namebase;
     const std::string local_name = std::move(local_namebase);
+    // class varaible
     XMLParser parser;
     while (true) {
         if (std::distance(pc, buffer.cend()) < 5) {
             // refill buffer and adjust iterator
             pc = refillBuffer(pc, buffer, total);
-            if (pc == buffer.cend())
+            if (parser.isDone(pc, buffer.cend()))
                 break;
         } else if (parser.isXMLDeclaration(pc)) {
             // parse XML declaration

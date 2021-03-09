@@ -7,6 +7,18 @@
 #include "XMLParser.hpp"
 #include "xml_parser.hpp"
 
+// constructor
+XMLParser::XMLParser() {
+    
+    
+}
+
+// is done parsing
+bool XMLParser::isDone(std::string::const_iterator pc, std::string::const_iterator end) {
+    
+    return pc == end;
+}
+
 // is parsing at a XML declaration
 bool XMLParser::isXMLDeclaration(std::string::const_iterator pc) {
   

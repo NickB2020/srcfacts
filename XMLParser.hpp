@@ -11,6 +11,13 @@
 
 class XMLParser {
 public:
+    
+    // constructor
+    XMLParser();
+    
+    // is done parsing
+    bool isDone(std::string::const_iterator pc, std::string::const_iterator end);
+    
     // is parsing at a XML declaration
     bool isXMLDeclaration(std::string::const_iterator pc);
     
@@ -80,6 +87,9 @@ public:
     // parse a XML characters
     std::string::const_iterator parseCharacters(std::string::const_iterator pc, int loc, int textsize);
 
+private:
+    std::string::const_iterator pc;
+    std::string buffer;
 };
 
 #endif
