@@ -43,4 +43,8 @@ bool XMLParser::isXMLCDATA(std::string::const_iterator pc) {
     return ::isXMLCDATA(pc);
 }
 
-
+// is parsing at a XML comment
+bool XMLParser::isXMLComment(std::string::const_iterator pc) {
+    
+    return ::isXMLComment(pc);
+}

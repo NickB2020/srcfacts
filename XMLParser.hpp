@@ -28,6 +28,9 @@ public:
     
     // is parsing at a XML CDATA
     bool isXMLCDATA(std::string::const_iterator pc);
+    
+    // is parsing at a XML comment
+    bool isXMLComment(std::string::const_iterator pc);
 
 };
 
