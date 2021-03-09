@@ -19,6 +19,9 @@ public:
     
     // is parsing at a XML start tag
     bool isXMLStartTag(std::string::const_iterator pc);
+    
+    // is parsing at a XML Namespace
+    bool isXMLNamespace(bool intag, std::string::const_iterator pc);
 
 };
 

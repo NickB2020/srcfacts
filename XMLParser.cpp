@@ -24,3 +24,9 @@ bool XMLParser::isXMLStartTag(std::string::const_iterator pc) {
     
     return ::isXMLStartTag(pc);
 }
+
+// is parsing at a XML namespace
+bool XMLParser::isXMLNamespace(bool intag, std::string::const_iterator pc) {
+    
+    return ::isXMLNamespace(intag, pc);
+}

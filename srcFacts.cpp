@@ -165,7 +165,7 @@ int main() {
                 ++literal_string_count;
             else if (local_name == "line_comment")
                 ++line_comment_count;
-        } else if (isXMLNamespace(intag, pc)) {
+        } else if (parser.isXMLNamespace(intag, pc)) {
             // parse namespace
             pc = parseNameSpace(intag, pc, endpc, pnameend, pvalueend);
         } else if (isXMLAttribute(intag, pc)) {
