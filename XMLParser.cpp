@@ -54,3 +54,9 @@ bool XMLParser::isCharactersBeforeOrAfter(int depth, std::string::const_iterator
     
     return ::isCharactersBeforeOrAfter(depth, pc);
 }
+
+// is parsing at a XML entity characters
+bool XMLParser::isXMLEntityCharacters(std::string::const_iterator pc) {
+    
+    return ::isXMLEntityCharacters(pc);
+}

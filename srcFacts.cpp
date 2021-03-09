@@ -226,7 +226,7 @@ int main() {
         } else if (parser.isCharactersBeforeOrAfter(depth, pc)) {
              // parse characters before or after XML
             pc = parseCharactersBeforeOrAfter(pc);
-        } else if (isXMLEntityCharacters(pc)) {
+        } else if (parser.isXMLEntityCharacters(pc)) {
             // parse entity references
            // pc = parseEntityReference(pc, textsize, total);
             std::string characters;
