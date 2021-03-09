@@ -139,6 +139,13 @@ std::string::const_iterator XMLParser::parseEntityReference(std::string::const_i
     return ::parseEntityReference(pc, textsize, total);
 }
 
+// parse a XML characters
+std::string::const_iterator XMLParser::parseCharacters(std::string::const_iterator pc, int loc, int textsize) {
+    
+    return ::parseCharacters(pc, loc, textsize);
+}
+
+
 
 
 

@@ -76,6 +76,9 @@ public:
     
     // parse a XML entity references
     std::string::const_iterator parseEntityReference(std::string::const_iterator pc, int textsize, long& total);
+    
+    // parse a XML characters
+    std::string::const_iterator parseCharacters(std::string::const_iterator pc, int loc, int textsize);
 
 };
 

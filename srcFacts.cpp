@@ -265,7 +265,7 @@ int main() {
             textsize += (int) characters.size();
         } else if (parser.isXMLCharacters(pc)) {
             // parse characters
-           // pc = parseCharacters(pc, loc, textsize);
+           // pc = parser.parseCharacters(pc, loc, textsize);
             const std::string::const_iterator endpc = std::find_if(pc, buffer.cend(), [] (char c) { return c == '<' || c == '&'; });
             const std::string characters(pc, endpc);
             loc += (int) std::count(characters.cbegin(), characters.cend(), '\n');
