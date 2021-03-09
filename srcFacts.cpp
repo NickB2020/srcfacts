@@ -217,7 +217,7 @@ int main() {
                 std::advance(pc, 2);
                 intag = false;
             }
-        } else if (isXMLCDATA(pc)) {
+        } else if (parser.isXMLCDATA(pc)) {
             // parse CDATA
             pc = parseCDATA(pc, endpc, loc, textsize, total);
         } else if (isXMLComment(pc)) {

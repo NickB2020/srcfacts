@@ -36,3 +36,11 @@ bool XMLParser::isXMLAttribute(bool intag, std::string::const_iterator pc) {
     
     return ::isXMLAttribute(intag, pc);
 }
+
+// is parsing at a XML CDATA
+bool XMLParser::isXMLCDATA(std::string::const_iterator pc) {
+    
+    return ::isXMLCDATA(pc);
+}
+
+
