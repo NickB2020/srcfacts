@@ -170,7 +170,7 @@ int main() {
             pc = parser.parseNameSpace(intag, pc, endpc, pnameend, pvalueend);
         } else if (parser.isXMLAttribute(intag, pc)) {
             // parse attribute
-               // pc = parseAttribute(url, intag, pc, endpc, pnameend, pvalueend);
+               // pc = parser.parseAttribute(url, intag, pc, endpc, pnameend, pvalueend);
             const std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
             std::string::const_iterator pnameend = std::find(pc, std::next(endpc), '=');
             if (pnameend == std::next(endpc))

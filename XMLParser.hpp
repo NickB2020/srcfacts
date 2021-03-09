@@ -62,6 +62,9 @@ public:
     // parse a XML namespace
     std::string::const_iterator parseNameSpace(bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
 
+    // parse a XML attribute
+    std::string::const_iterator parseAttribute(std::string url, bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend);
+
 };
 
 #endif

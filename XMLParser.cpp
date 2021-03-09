@@ -109,4 +109,11 @@ std::string::const_iterator XMLParser::parseNameSpace(bool intag, std::string::c
     return ::parseNameSpace(intag, pc, endpc, pnameend, pvalueend);
 }
 
+// parse a XML attribute
+//std::string::const_iterator XMLParser::parseAttribute(std::string url, bool intag, std::string::const_iterator pc,  std::string::const_iterator endpc, std::string::const_iterator pnameend, std::string::const_iterator pvalueend) {
+//
+//    return ::parseAttribute(url, intag, pc, endpc, pnameend, pvalueend);
+//}
+
+
 
