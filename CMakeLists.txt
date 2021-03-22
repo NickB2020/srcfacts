@@ -22,6 +22,18 @@ set(SOURCE srcFacts.cpp refillBuffer.cpp XMLParser.cpp xml_parser.cpp)
 # srcFact application
 add_executable(srcFacts ${SOURCE})
 
+# Source files for xmlstats
+set(XMLSTATS_SOURCE xmlstats.cpp XMLParser.cpp refillBuffer.cpp xml_parser.cpp)
+
+# xmlstats application
+add_executable(xmlstats ${XMLSTATS_SOURCE})
+
+# Source files for identity
+set(XMLSTATS_SOURCE identity.cpp XMLParser.cpp refillBuffer.cpp xml_parser.cpp)
+
+# identity application
+add_executable(identity ${XMLSTATS_SOURCE})
+
 # Turn on warnings
 if (MSVC)
     # warning level 4
@@ -39,6 +51,24 @@ add_custom_target(run
         COMMENT "Run demo"
         COMMAND time ./srcFacts < demo.xml
         DEPENDS srcFacts
+        USES_TERMINAL
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+# xmlstats run command
+add_custom_target(runxmlstats
+        COMMENT "Run xmlstats"
+        COMMAND time ./xmlstats < demo.xml
+        DEPENDS xmlstats
+        USES_TERMINAL
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+# identity run command
+add_custom_target(runidentity
+        COMMENT "Run identity"
+        COMMAND time ./identity < demo.xml > democopy.xml
+        DEPENDS identity
         USES_TERMINAL
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
