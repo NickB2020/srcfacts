@@ -13,7 +13,26 @@
 const int XMLNS_SIZE = strlen("xmlns");
 
 // constructor
-XMLParser::XMLParser() {
+XMLParser::XMLParser(std::function<void(const std::string&)>handleDeclarations,
+                     std::function<void(const std::string&)>handleRequiredVersion,
+                     std::function<void(const std::string&)>handleEncoding,
+                     std::function<void(const std::string&)>handleStandalones,
+                     std::function<void(const std::string&)>handleEndTags,
+                     std::function<void(const std::string&)>handleStartTags,
+                     std::function<void(const std::string&)>handleNameSpaces,
+                     std::function<void(const std::string&)>handleAttributes,
+                     std::function<void(const std::string&)>handleCDATA,
+                     std::function<void(const std::string&)>handleComments,
+                     std::function<void(const std::string&)>handleCharactersBeforeOrAfter,
+                     std::function<void(const std::string&)>handleEntityReferences,
+                     std::function<void(const std::string&)>handleCharacters)
+   : handleDeclarations(handleDeclarations), handleRequiredVersion(handleRequiredVersion),
+     handleEncoding(handleEncoding), handleStandalones(handleStandalones),
+     handleEndTags(handleEndTags), handleStartTags(handleStartTags), handleNameSpaces(handleNameSpaces),
+     handleAttributes(handleAttributes), handleCDATA(handleCDATA), handleComments(handleComments),
+     handleCharactersBeforeOrAfter(handleCharactersBeforeOrAfter), handleEntityReferences(handleEntityReferences),
+handleCharacters(handleCharacters)
+{
     
     pc = buffer.cbegin();
 }
@@ -28,6 +47,8 @@ bool XMLParser::isDone() {
 bool XMLParser::isXMLDeclaration() {
   
     return *pc == '<' && *std::next(pc) == '?';
+//    if(handleDeclarations != nullptr)
+//        handleDeclarations(
 }
 
 // is parsing at a XML end tag
@@ -473,4 +494,3 @@ void XMLParser::parseCharacters() {
     textsize += (int) characters.size();
     pc = endpc;
 }
-

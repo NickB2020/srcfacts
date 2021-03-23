@@ -46,9 +46,9 @@ int main() {
     std::string buffer(BUFFER_SIZE, ' ');
     auto pc = buffer.cend();
     std::string local_namebase;
-    const std::string local_name = std::move(local_namebase);
+    std::string local_name = std::move(local_namebase);
     // class variable
-    XMLParser parser;
+    XMLParser parser(nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     while (true) {
         if (std::distance(pc, buffer.cend()) < 5) {
             // refill buffer and adjust iterator

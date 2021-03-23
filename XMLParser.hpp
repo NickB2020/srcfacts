@@ -14,7 +14,19 @@ class XMLParser {
 public:
     
     // constructor
-    XMLParser();
+    XMLParser(std::function<void(const std::string&)>handleDeclarations,
+              std::function<void(const std::string&)>handleRequiredVersion,
+              std::function<void(const std::string&)>handleEncoding,
+              std::function<void(const std::string&)>handleStandalones,
+              std::function<void(const std::string&)>handleEndTags,
+              std::function<void(const std::string&)>handleStartTags,
+              std::function<void(const std::string&)>handleNameSpaces,
+              std::function<void(const std::string&)>handleAttributes,
+              std::function<void(const std::string&)>handleCDATA,
+              std::function<void(const std::string&)>handleComments,
+              std::function<void(const std::string&)>handleCharactersBeforeOrAfter,
+              std::function<void(const std::string&)>handleEntityReferences,
+              std::function<void(const std::string&)>handleCharacters);
     
     // is done parsing
     bool isDone();
