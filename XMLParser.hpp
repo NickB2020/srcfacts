@@ -8,6 +8,7 @@
 #define INCLUDED_XMLPARSER_HPP
 
 #include <string>
+#include <functional>
 
 class XMLParser {
 public:
