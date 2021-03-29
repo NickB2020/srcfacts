@@ -113,7 +113,7 @@ int main() {
         }
     }
     
-    // srcFacts compose report
+    // output the report
     std::cout << "# srcFacts: " << url <<'\n';
     std::cout << "| Item | Count |\n";
     std::cout << "|:-----|-----:|\n";
