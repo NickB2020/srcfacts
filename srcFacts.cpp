@@ -70,7 +70,7 @@ int main() {
             parser.parseStartTag();
             // update counters and expr
             std::string local_namebase;
-            std::string local_name;
+            const std::string local_name = std::move(local_namebase);
             if (local_name == "expr")
                 ++expr_count;
             else if (local_name == "function")
