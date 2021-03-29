@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iterator>
 #include <string>
+#include <errno.h>
 #if !defined(_MSC_VER)
 #include <sys/uio.h>
 #include <unistd.h>
