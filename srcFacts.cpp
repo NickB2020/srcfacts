@@ -11,7 +11,6 @@
 
 #include "XMLParser.hpp"
 #include <iostream>
-#include <iterator>
 #include <string>
 
 #if !defined(_MSC_VER)
@@ -38,17 +37,15 @@ int main() {
     int file_count = 0;
     int decl_count = 0;
     int comment_count = 0;
-    int return_count = 0;
+    int return_count = 0;;
     int literal_string_count = 0;
     int line_comment_count = 0;
     int depth = 0;
     long total = 0;
     std::string buffer(BUFFER_SIZE, ' ');
     auto pc = buffer.cend();
-    std::string local_namebase;
-    std::string local_name = std::move(local_namebase);
     // class variable
-    XMLParser parser(nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+    XMLParser parser;//(nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     while (true) {
         if (std::distance(pc, buffer.cend()) < 5) {
             // refill buffer and adjust iterator
@@ -57,6 +54,7 @@ int main() {
                 break;
         } else if (parser.isXMLDeclaration()) {
             // parse XML declaration
+            std::string name;
             parser.parseDeclaration();
             // parse required version
             parser.parseRequiredVersion();
@@ -71,6 +69,8 @@ int main() {
             // parse start tag
             parser.parseStartTag();
             // update counters and expr
+            std::string local_namebase;
+            std::string local_name;
             if (local_name == "expr")
                 ++expr_count;
             else if (local_name == "function")

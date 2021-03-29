@@ -9,32 +9,36 @@
 
 #include <iostream>
 #include <iterator>
+#include <sstream>
 
 const int XMLNS_SIZE = strlen("xmlns");
 
 // constructor
-XMLParser::XMLParser(std::function<void(const std::string&)>handleDeclarations,
-                     std::function<void(const std::string&)>handleRequiredVersion,
-                     std::function<void(const std::string&)>handleEncoding,
-                     std::function<void(const std::string&)>handleStandalones,
-                     std::function<void(const std::string&)>handleEndTags,
-                     std::function<void(const std::string&)>handleStartTags,
-                     std::function<void(const std::string&)>handleNameSpaces,
-                     std::function<void(const std::string&)>handleAttributes,
-                     std::function<void(const std::string&)>handleCDATA,
-                     std::function<void(const std::string&)>handleComments,
-                     std::function<void(const std::string&)>handleCharactersBeforeOrAfter,
-                     std::function<void(const std::string&)>handleEntityReferences,
-                     std::function<void(const std::string&)>handleCharacters)
-   : handleDeclarations(handleDeclarations), handleRequiredVersion(handleRequiredVersion),
-     handleEncoding(handleEncoding), handleStandalones(handleStandalones),
-     handleEndTags(handleEndTags), handleStartTags(handleStartTags), handleNameSpaces(handleNameSpaces),
-     handleAttributes(handleAttributes), handleCDATA(handleCDATA), handleComments(handleComments),
-     handleCharactersBeforeOrAfter(handleCharactersBeforeOrAfter), handleEntityReferences(handleEntityReferences),
-handleCharacters(handleCharacters)
-{
-    
+XMLParser::XMLParser(){//(std::function<void(const std::string&)>handleDeclarations,
+//                     std::function<void(const std::string&)>handleRequiredVersion,
+//                     std::function<void(const std::string&)>handleEncoding,
+//                     std::function<void(const std::string&)>handleStandalones,
+//                     std::function<void(const std::string&)>handleEndTags,
+//                     std::function<void(const std::string&)>handleStartTags,
+//                     std::function<void(const std::string&)>handleNameSpaces,
+//                     std::function<void(const std::string&)>handleAttributes,
+//                     std::function<void(const std::string&)>handleCDATA,
+//                     std::function<void(const std::string&)>handleComments,
+//                     std::function<void(const std::string&)>handleCharactersBeforeOrAfter,
+//                     std::function<void(const std::string&)>handleEntityReferences,
+//                     std::function<void(const std::string&)>handleCharacters)
+//   : handleDeclarations(handleDeclarations), handleRequiredVersion(handleRequiredVersion),
+//     handleEncoding(handleEncoding), handleStandalones(handleStandalones),
+//     handleEndTags(handleEndTags), handleStartTags(handleStartTags), handleNameSpaces(handleNameSpaces),
+//     handleAttributes(handleAttributes), handleCDATA(handleCDATA), handleComments(handleComments),
+//     handleCharactersBeforeOrAfter(handleCharactersBeforeOrAfter), handleEntityReferences(handleEntityReferences),
+//     handleCharacters(handleCharacters)
+//{
+//    std::ostringstream sstream;
+//    sstream << std::cin.rdbuf();
+//    buffer = sstream.str();
     pc = buffer.cbegin();
+    //pc = refillBuffer(pc, buffer, total);
 }
 
 // is done parsing
@@ -47,8 +51,7 @@ bool XMLParser::isDone() {
 bool XMLParser::isXMLDeclaration() {
   
     return *pc == '<' && *std::next(pc) == '?';
-//    if(handleDeclarations != nullptr)
-//        handleDeclarations(
+
 }
 
 // is parsing at a XML end tag
@@ -110,8 +113,11 @@ bool XMLParser::isXMLCharacters() {
 // parse declaration
 void XMLParser::parseDeclaration() {
      
+//    if(handleDeclarations != nullptr){
+//        handleDeclarations(pc);
+//    }
     //check for incomplete XML declaration
-    endpc = std::find(pc, buffer.cend(), '>');
+    //endpc = std::find(pc, buffer.cend(), '>');
     if (endpc == buffer.cend()) {
        //refill the buffer
        pc = refillBuffer(pc, buffer, total);
@@ -307,7 +313,7 @@ void XMLParser::parseStartTag() {
 // parse a XML namespace
 void XMLParser::parseNameSpace() {
     
-    endpc = std::find(pc, buffer.cend(), '>');
+    std::string::const_iterator endpc = std::find(pc, buffer.cend(), '>');
     std::string::const_iterator pnameend = std::find(pc, std::next(endpc), '=');
     if (pnameend == std::next(endpc)) {
         std::cerr << "parser error : incomplete namespace\n";
@@ -352,7 +358,7 @@ void XMLParser::parseNameSpace() {
 // parse a XML attribute
 void XMLParser::parseAttribute() {
 
-    std::string url;
+    //std::string url;
     endpc = std::find(pc, buffer.cend(), '>');
     std::string::const_iterator pnameend = std::find(pc, std::next(endpc), '=');
     if (pnameend == std::next(endpc))
