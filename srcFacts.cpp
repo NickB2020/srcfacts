@@ -45,7 +45,7 @@ int main() {
     std::string buffer(BUFFER_SIZE, ' ');
     auto pc = buffer.cend();
     // class variable
-    XMLParser parser;//(nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+    XMLParser parser(nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     while (true) {
         if (std::distance(pc, buffer.cend()) < 5) {
             // refill buffer and adjust iterator
@@ -68,9 +68,8 @@ int main() {
         } else if (parser.isXMLStartTag()) {
             // parse start tag
             parser.parseStartTag();
-            // update counters and expr
             std::string local_namebase;
-            const std::string local_name = std::move(local_namebase);
+            const std::string local_name;
             if (local_name == "expr")
                 ++expr_count;
             else if (local_name == "function")
