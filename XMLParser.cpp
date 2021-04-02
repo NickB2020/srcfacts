@@ -35,7 +35,64 @@ XMLParser::XMLParser(std::function<void(const std::string&)>handleDeclarations,
      handleCharacters(handleCharacters)
 {
     pc = buffer.cbegin();
-    //pc = refillBuffer(pc, buffer, total);
+    pc = refillBuffer(pc, buffer, total);
+}
+
+// parse the XML
+void XMLParser::parse() {
+    
+    while (true) {
+        if (std::distance(pc, buffer.cend()) < 5) {
+            // refill buffer and adjust iterator
+            pc = refillBuffer(pc, buffer, total);
+            if (isDone())
+                break;
+        } else if (isXMLDeclaration()) {
+            // parse XML declaration
+            std::string name;
+            parseDeclaration(name);
+            // parse required version
+            parseRequiredVersion();
+             //parse encoding
+            parseEncoding();
+            //parse standalone
+            parseStandalone();
+        } else if (isXMLEndTag()) {
+            std::string local_name;
+            std::string qname;
+            std::string prefixbase;
+            // parse end tag
+            parseEndTag();
+        } else if (isXMLStartTag()) {
+            std::string local_name;
+            std::string qname;
+            std::string prefixbase;
+            // parse start tag
+            parseStartTag();
+        } else if (isXMLNamespace()) {
+            // parse namespace
+            parseNameSpace();
+        } else if (isXMLAttribute()) {
+            // parse attribute
+            parseAttribute();
+        } else if (isXMLCDATA()) {
+            // parse CDATA
+            parseCDATA();
+        } else if (isXMLComment()) {
+            // parse XML comment
+            parseComment();
+        } else if (isCharactersBeforeOrAfter()) {
+             // parse characters before or after XML
+            parseCharactersBeforeOrAfter();
+        } else if (isXMLEntityCharacters()) {
+            // parse entity references
+            std::string characters;
+            parseEntityReference(characters);
+        } else if (isXMLCharacters()) {
+            // parse characters
+            parseCharacters();
+        }
+    }
 }
 
 // is done parsing
@@ -108,7 +165,7 @@ bool XMLParser::isXMLCharacters() {
 }
 
 // parse declaration
-void XMLParser::parseDeclaration() {
+void XMLParser::parseDeclaration(std::string& name) {
      
     if(handleDeclarations != nullptr){
         handleDeclarations(local_name);
@@ -116,6 +173,7 @@ void XMLParser::parseDeclaration() {
     //check for incomplete XML declaration
     if (endpc == buffer.cend()) {
        //refill the buffer
+        name.assign(pc, endpc);
        pc = refillBuffer(pc, buffer, total);
        endpc = std::find(pc, buffer.cend(), '>');
        if (endpc == buffer.cend()) {
@@ -305,7 +363,8 @@ void XMLParser::parseStartTag() {
         local_namebase = qname.substr(colonpos + 1);
     else
         local_namebase = qname;
-    const std::string local_name = std::move(local_namebase);
+    //const std::string
+    local_name = std::move(local_namebase);
     pc = pnameend;
     pc = std::find_if_not(pc, std::next(endpc), [] (char c) { return isspace(c); });
     ++depth;
@@ -479,12 +538,9 @@ void XMLParser::parseCharactersBeforeOrAfter() {
 }
 
 // parse a XML entity references
-void XMLParser::parseEntityReference() {
+void XMLParser::parseEntityReference(std::string& characters) {
     
-    if(handleEntityReferences != nullptr){
-        handleEntityReferences(local_name);
-    }
-    std::string characters;
+   // std::string characters;
     if (std::distance(pc, buffer.cend()) < 3) {
         pc = refillBuffer(pc, buffer, total);
         if (std::distance(pc, buffer.cend()) < 3) {

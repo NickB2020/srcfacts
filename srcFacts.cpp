@@ -31,6 +31,7 @@ int main() {
     std::string url;
     int textsize = 0;
     int loc = 0;
+    bool intag = false;
     int expr_count = 0;
     int function_count = 0;
     int class_count = 0;
@@ -43,32 +44,53 @@ int main() {
     int depth = 0;
     long total = 0;
     std::string buffer(BUFFER_SIZE, ' ');
-    auto pc = buffer.cend();
+    auto pc = buffer.cbegin();
+    
     // class variable
     XMLParser parser(nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
-    while (true) {
-        if (std::distance(pc, buffer.cend()) < 5) {
-            // refill buffer and adjust iterator
-            pc = refillBuffer(pc, buffer, total);
-            if (parser.isDone())
-                break;
-        } else if (parser.isXMLDeclaration()) {
-            // parse XML declaration
-            std::string name;
-            parser.parseDeclaration();
-            // parse required version
-            parser.parseRequiredVersion();
-             //parse encoding
-            parser.parseEncoding();
-            //parse standalone
-            parser.parseStandalone();
-        } else if (parser.isXMLEndTag()) {
-            // parse end tag
-            parser.parseEndTag();
-        } else if (parser.isXMLStartTag()) {
-            // parse start tag
-            parser.parseStartTag();
-            std::string local_namebase;
+    
+//    XMLParser parser(
+//
+//                [&](const std::string&local_name){
+//                     //const std::string local_name = name.substr(0, name.find('_'));
+//                     if (local_name == "expr")
+//                         ++expr_count;
+//                     else if (local_name == "function")
+//                         ++function_count;
+//                     else if (local_name == "decl")
+//                         ++decl_count;
+//                     else if (local_name == "class")
+//                         ++class_count;
+//                     else if (local_name == "unit" && depth > 0)
+//                         ++file_count;
+//                     else if (local_name == "comment")
+//                         ++comment_count;
+//                     else if (local_name == "return")
+//                         ++return_count;
+//                     else if (local_name == "literal")
+//                         ++literal_string_count;
+//                     else if (local_name == "line_comment")
+//                         ++line_comment_count;
+//                    }
+//                    );
+//        if (local_name == "expr")
+//            ++expr_count;
+//        else if (local_name == "function")
+//            ++function_count;
+//        else if (local_name == "decl")
+//            ++decl_count;
+//        else if (local_name == "class")
+//            ++class_count;
+//        else if (local_name == "unit" && depth > 1)
+//            ++file_count;
+//        else if (local_name == "comment")
+//            ++comment_count;
+//        //functionality for counting return statements
+//        else if (local_name == "return")
+//            ++return_count;
+//    }
+
+           // std::string local_namebase;
             const std::string local_name;
             if (local_name == "expr")
                 ++expr_count;
@@ -88,29 +110,6 @@ int main() {
                 ++literal_string_count;
             else if (local_name == "line_comment")
                 ++line_comment_count;
-        } else if (parser.isXMLNamespace()) {
-            // parse namespace
-            parser.parseNameSpace();
-        } else if (parser.isXMLAttribute()) {
-            // parse attribute
-            parser.parseAttribute();
-        } else if (parser.isXMLCDATA()) {
-            // parse CDATA
-            parser.parseCDATA();
-        } else if (parser.isXMLComment()) {
-            // parse XML comment
-            parser.parseComment();
-        } else if (parser.isCharactersBeforeOrAfter()) {
-             // parse characters before or after XML
-            parser.parseCharactersBeforeOrAfter();
-        } else if (parser.isXMLEntityCharacters()) {
-            // parse entity references
-            parser.parseEntityReference();
-        } else if (parser.isXMLCharacters()) {
-            // parse characters
-            parser.parseCharacters();
-        }
-    }
     
     // output the report
     std::cout << "# srcFacts: " << url <<'\n';

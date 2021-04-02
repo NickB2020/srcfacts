@@ -28,6 +28,9 @@ public:
               std::function<void(const std::string&)>handleEntityReferences,
               std::function<void(const std::string&)>handleCharacters);
     
+// parse the XML
+void parse();
+    
 // is done parsing
 bool isDone();
     
@@ -62,7 +65,7 @@ bool isXMLEntityCharacters();
 bool isXMLCharacters();
 
 // parse declaration
-void parseDeclaration();
+void parseDeclaration(std::string& name);
 
 // parse required version
 void parseRequiredVersion();
@@ -95,11 +98,11 @@ void parseComment();
 void parseCharactersBeforeOrAfter();
  
 // parse a XML entity references
-void parseEntityReference();
+void parseEntityReference(std::string& characters);
     
 // parse a XML characters
 void parseCharacters();
-
+    
 private:
     std::function<void(const std::string&)>handleDeclarations;
     std::function<void(const std::string&)>handleRequiredVersion;
@@ -125,6 +128,16 @@ private:
     int textsize = 0;
     int loc = 0;
     std::string url;
+    
+    int expr_count = 0;
+    int function_count = 0;
+    int class_count = 0;
+    int file_count = 0;
+    int decl_count = 0;
+    int comment_count = 0;
+    int stringLiteral_count = 0;
+    int blockComment_count = 0;
+    int return_count = 0;
 };
 
 #endif
