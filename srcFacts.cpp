@@ -73,22 +73,6 @@ int main() {
 //                         ++line_comment_count;
 //                    }
 //                    );
-//        if (local_name == "expr")
-//            ++expr_count;
-//        else if (local_name == "function")
-//            ++function_count;
-//        else if (local_name == "decl")
-//            ++decl_count;
-//        else if (local_name == "class")
-//            ++class_count;
-//        else if (local_name == "unit" && depth > 1)
-//            ++file_count;
-//        else if (local_name == "comment")
-//            ++comment_count;
-//        //functionality for counting return statements
-//        else if (local_name == "return")
-//            ++return_count;
-//    }
 
            // std::string local_namebase;
             const std::string local_name;
